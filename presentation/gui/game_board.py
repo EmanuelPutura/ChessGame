@@ -18,8 +18,6 @@ class GameBoard(pygame.sprite.Sprite):
         self.__chess_board_dimension = self.__main_window.get_size()[1] - Dimensions.MARGIN.value * 2
         self.__cell_dimension = self.__chess_board_dimension / self.__dimension
 
-        self.draw()
-
     def update(self):
         pass
 
