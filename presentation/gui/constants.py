@@ -3,7 +3,7 @@ from enum import Enum
 
 class Dimensions(Enum):
     MARGIN = 40
-    WINDOW_LENGTH = 900
+    WINDOW_WIDTH = 900
     WINDOW_HEIGHT = 700
 
 

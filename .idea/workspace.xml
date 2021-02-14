@@ -26,10 +26,11 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Informatica/FP/Obstruction" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/assets" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Personal Projects\ChessGame\assets" />
       <recent name="D:\Personal Projects\ChessGame" />
     </key>
   </component>
@@ -71,7 +72,7 @@
       <option name="presentableId" value="Default" />
       <updated>1613244081796</updated>
       <workItem from="1613244082843" duration="84000" />
-      <workItem from="1613303496494" duration="10087000" />
+      <workItem from="1613303496494" duration="15418000" />
     </task>
     <servers />
   </component>
@@ -79,48 +80,48 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1613323079666">
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1613325558681">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1613323079666" />
-    <state width="1493" height="183" key="GridCell.Tab.0.bottom" timestamp="1613323110300">
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1613325558681" />
+    <state width="1493" height="183" key="GridCell.Tab.0.bottom" timestamp="1613328492465">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="183" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1613323110300" />
-    <state width="1493" height="183" key="GridCell.Tab.0.center" timestamp="1613323110300">
+    <state width="1493" height="183" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1613328492465" />
+    <state width="1493" height="183" key="GridCell.Tab.0.center" timestamp="1613328492465">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="183" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1613323110300" />
-    <state width="1493" height="183" key="GridCell.Tab.0.left" timestamp="1613323110300">
+    <state width="1493" height="183" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1613328492465" />
+    <state width="1493" height="183" key="GridCell.Tab.0.left" timestamp="1613328492465">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="183" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1613323110300" />
-    <state width="1493" height="183" key="GridCell.Tab.0.right" timestamp="1613323110300">
+    <state width="1493" height="183" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1613328492465" />
+    <state width="1493" height="183" key="GridCell.Tab.0.right" timestamp="1613328492465">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="183" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1613323110300" />
-    <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1613316821352">
+    <state width="1493" height="183" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1613328492465" />
+    <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1613325536482">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="261" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1613316821352" />
-    <state width="1493" height="261" key="GridCell.Tab.1.center" timestamp="1613316821352">
+    <state width="1493" height="261" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1613325536482" />
+    <state width="1493" height="261" key="GridCell.Tab.1.center" timestamp="1613325536482">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="261" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1613316821352" />
-    <state width="1493" height="261" key="GridCell.Tab.1.left" timestamp="1613316821352">
+    <state width="1493" height="261" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1613325536482" />
+    <state width="1493" height="261" key="GridCell.Tab.1.left" timestamp="1613325536482">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="261" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1613316821352" />
-    <state width="1493" height="261" key="GridCell.Tab.1.right" timestamp="1613316821352">
+    <state width="1493" height="261" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1613325536482" />
+    <state width="1493" height="261" key="GridCell.Tab.1.right" timestamp="1613325536482">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1613316821352" />
+    <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1613325536482" />
     <state x="611" y="198" key="refactoring.ChangeSignatureDialog" timestamp="1613315255904">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="611" y="198" key="refactoring.ChangeSignatureDialog/0.0.1536.824@0.0.1536.824" timestamp="1613315255904" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/ChessGame$main_window.coverage" NAME="main_window Coverage Results" MODIFIED="1613323110293" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/presentation/gui" />
+    <SUITE FILE_PATH="coverage/ChessGame$main_window.coverage" NAME="main_window Coverage Results" MODIFIED="1613328492450" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/presentation/gui" />
   </component>
 </project>
