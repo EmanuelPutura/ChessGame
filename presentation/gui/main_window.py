@@ -3,7 +3,7 @@ import pygame
 from presentation.gui.constants import Colors, Dimensions
 from presentation.gui.game_board import GameBoard
 from presentation.gui.gradient_generator import GradientGenerator
-from presentation.gui.widgets import Label, Image, TextBox
+from presentation.gui.widgets import Label, ImageButton, TextBox, TextButton
 
 
 class MainWindow:
@@ -34,8 +34,8 @@ class MainWindow:
         get_widget_y = lambda middle, height: middle - height / 2
 
         widget_y = get_widget_y(margin + cell_dimension / 2, widget_height)
-        self.__login_image = Image(r'\\assets\login.png', widget_width, widget_height, widget_x, widget_y)
-        self.__login_image.add(self.__widgets_group)
+        self.__login_button = ImageButton(r'\\assets\login.png', widget_width, widget_height, widget_x, widget_y)
+        self.__login_button.add(self.__widgets_group)
 
         widget_x -= 20
         widget_y = widget_y + widget_height + 10
@@ -52,6 +52,29 @@ class MainWindow:
 
         self.__password_text = TextBox(widget_x, widget_y, widget_width, widget_height, True, '', widget_font)
         self.__password_text.add(self.__widgets_group)
+
+        widget_y = widget_y + widget_height + 10
+        self.__create_account_button = TextButton('Create an account', widget_font, widget_width, widget_height, widget_x, widget_y)
+        self.__create_account_button.add(self.__widgets_group)
+
+        widget_x = screen_height
+        widget_width = screen_width - screen_height - margin
+        widget_height = margin
+        widget_y = widget_y + widget_height + cell_dimension + margin
+        self.__guest_button = ImageButton(r'\\assets\guest.png', widget_width, widget_height, widget_x, widget_y)
+        self.__guest_button.add(self.__widgets_group)
+
+        widget_y = widget_y + widget_height + 10
+        self.__tutorial_button = ImageButton(r'\\assets\tutorial.png', widget_width, widget_height, widget_x, widget_y)
+        self.__tutorial_button.add(self.__widgets_group)
+
+        widget_y = widget_y + widget_height + 10
+        self.__settings_button = ImageButton(r'\\assets\settings.png', widget_width, widget_height, widget_x, widget_y)
+        self.__settings_button.add(self.__widgets_group)
+
+        widget_y = widget_y + widget_height + 10
+        self.__exit_button = ImageButton(r'\\assets\exit.png', widget_width, widget_height, widget_x, widget_y)
+        self.__exit_button.add(self.__widgets_group)
 
     def __draw_margin(self):
         line_dictionary = {0: ((37, 37), (662, 37)), 1: ((660, 37), (660, 660)), 2: ((660, 660), (37, 660)),

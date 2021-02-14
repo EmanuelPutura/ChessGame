@@ -36,7 +36,7 @@ class Button(pygame.sprite.Sprite):
         surface.blit(self.__surface, (self.__x, self.__y))
 
 
-class Image(pygame.sprite.Sprite):
+class ImageButton(pygame.sprite.Sprite):
     def __init__(self, file_name, width, height, x=0, y=0):
         super().__init__()
         self.__file_name = file_name
@@ -44,6 +44,13 @@ class Image(pygame.sprite.Sprite):
         self.__height = height
         self.__x = x
         self.__y = y
+        self.__rectangle = pygame.Rect(x, y, width, height)
+
+    def update(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            # If the user clicked on the image rectangle
+            if self.__rectangle.collidepoint(event.pos):
+                pass  # TODO
 
     def draw(self, surface):
         relative_path = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
@@ -59,9 +66,22 @@ class Label(pygame.sprite.Sprite):
         super().__init__()
         self.__x = x
         self.__y = y
+        self.__font = font
         self.__width = width
         self.__height = height
         self.change_text(text, font, text_color)
+
+    @property
+    def text(self):
+        return self.__text
+
+    @property
+    def font(self):
+        return self.__font
+
+    @property
+    def text_color(self):
+        return self.__text_color
 
     def change_text(self, text, font, text_color=Colors.WHITE.value):
         self.__text = font.render(text, 1, text_color)
@@ -81,8 +101,23 @@ class Label(pygame.sprite.Sprite):
 
 
 class TextButton(Label):
-    def __init__(self, text, font, x=0, y=0, text_color=Colors.WHITE.value):
-        super().__init__(text, font, x, y, text_color)
+    def __init__(self, text, font, width, height, x=0, y=0, text_color=Colors.WHITE.value):
+        super().__init__(text, font, width, height, x, y, text_color)
+        self.__rectangle = pygame.Rect(x, y, width, height)
+        self.__initial_text = text
+        self.__initial_text_color = text_color
+
+    def update(self, event):
+        position = pygame.mouse.get_pos()
+        if self.__rectangle.x <= position[0] <= self.__rectangle.x + self.__rectangle.w and \
+                self.__rectangle.y <= position[1] <= self.__rectangle.y + self.__rectangle.h:
+            self.change_text(self.__initial_text, self.font, Colors.GRAY.value)
+        else:
+            self.change_text(self.__initial_text, self.font, self.__initial_text_color)
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            # If the user clicked on the image rectangle
+            if self.__rectangle.collidepoint(event.pos):
+                pass  # TODO
 
 
 class TextBox(pygame.sprite.Sprite):
@@ -111,6 +146,8 @@ class TextBox(pygame.sprite.Sprite):
         if event.type == pygame.MOUSEBUTTONDOWN:
             # If the user clicked on the textBox rectangle
             if self.__rectangle.collidepoint(event.pos):
+                print(event)
+                print(event.pos)
                 # Toggle the active variable
                 self.__active = not self.__active
             else:
