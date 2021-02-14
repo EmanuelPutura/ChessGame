@@ -3,7 +3,7 @@ from enum import Enum
 
 class Dimensions(Enum):
     MARGIN = 40
-    WINDOW_LENGTH = 700
+    WINDOW_LENGTH = 900
     WINDOW_HEIGHT = 700
 
 
@@ -14,3 +14,4 @@ class Colors(Enum):
 
     BLACK1 = (0, 0, 0)
     BLACK2 = (20, 20, 20)
+    BLACK3 = (40, 40, 40)

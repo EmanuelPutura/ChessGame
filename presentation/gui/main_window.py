@@ -2,13 +2,19 @@ import pygame
 
 from presentation.gui.constants import Colors, Dimensions
 from presentation.gui.game_board import GameBoard
+from presentation.gui.gradient_generator import GradientGenerator
 
 
 class MainWindow:
-    def __init__(self):
+    def __init__(self, gradient_generator=None):
         pygame.init()
         self.__window = pygame.display.set_mode((Dimensions.WINDOW_LENGTH.value, Dimensions.WINDOW_HEIGHT.value))
         self.__window.fill(Colors.BLACK2.value)
+
+        if gradient_generator is None:
+            gradient_generator = GradientGenerator(self.__window, Colors.BLACK3.value, Colors.BLACK2.value)
+        self.__gradient_generator = gradient_generator
+        self.__gradient_generator.fill_gradient(True)
         self.__draw_margin()
         self.__game_board = GameBoard(self.__window)
 
