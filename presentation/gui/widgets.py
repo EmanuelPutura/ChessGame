@@ -37,8 +37,9 @@ class Button(pygame.sprite.Sprite):
 
 
 class ImageButton(pygame.sprite.Sprite):
-    def __init__(self, file_name, width, height, x=0, y=0):
+    def __init__(self, parent, file_name, width, height, x=0, y=0):
         super().__init__()
+        self.__parent = parent
         self.__file_name = file_name
         self.__width = width
         self.__height = height
@@ -46,11 +47,16 @@ class ImageButton(pygame.sprite.Sprite):
         self.__y = y
         self.__rectangle = pygame.Rect(x, y, width, height)
 
+    @property
+    def parent(self):
+        return self.__parent
+
+    @property
+    def rectangle(self):
+        return self.__rectangle
+
     def update(self, event):
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            # If the user clicked on the image rectangle
-            if self.__rectangle.collidepoint(event.pos):
-                pass  # TODO
+        pass
 
     def draw(self, surface):
         relative_path = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
@@ -61,15 +67,32 @@ class ImageButton(pygame.sprite.Sprite):
         surface.blit(image, (self.__x, self.__y))
 
 
+class BackImageButton(ImageButton):
+    def __init__(self, parent, file_name, width, height, x=0, y=0):
+        super().__init__(parent, file_name, width, height, x, y)
+
+    def update(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            # If the user clicked on the image rectangle
+            if self.rectangle.collidepoint(event.pos):
+                self.parent.widgets_group.empty()
+                self.parent.init_widgets()
+
+
 class Label(pygame.sprite.Sprite):
-    def __init__(self, text, font, width, height, x=0, y=0, text_color=Colors.WHITE.value):
+    def __init__(self, parent, text, font, width, height, x=0, y=0, text_color=Colors.WHITE.value):
         super().__init__()
+        self.__parent = parent
         self.__x = x
         self.__y = y
         self.__font = font
         self.__width = width
         self.__height = height
         self.change_text(text, font, text_color)
+
+    @property
+    def parent(self):
+        return self.__parent
 
     @property
     def text(self):
@@ -101,8 +124,16 @@ class Label(pygame.sprite.Sprite):
 
 
 class TextButton(Label):
-    def __init__(self, text, font, width, height, x=0, y=0, text_color=Colors.WHITE.value):
-        super().__init__(text, font, width, height, x, y, text_color)
+    def __init__(self, parent, text, font, width, height, x=0, y=0, text_color=Colors.WHITE.value):
+        super().__init__(parent, text, font, width, height, x, y, text_color)
+
+    def update(self, event):
+        pass
+
+
+class CreateAccountTextButton(TextButton):
+    def __init__(self, parent, text, font, width, height, x=0, y=0, text_color=Colors.WHITE.value):
+        super().__init__(parent, text, font, width, height, x, y, text_color)
         self.__rectangle = pygame.Rect(x, y, width, height)
         self.__initial_text = text
         self.__initial_text_color = text_color
@@ -117,7 +148,8 @@ class TextButton(Label):
         if event.type == pygame.MOUSEBUTTONDOWN:
             # If the user clicked on the image rectangle
             if self.__rectangle.collidepoint(event.pos):
-                pass  # TODO
+                self.parent.widgets_group.empty()
+                self.parent.init_account_widgets()
 
 
 class TextBox(pygame.sprite.Sprite):
@@ -146,8 +178,6 @@ class TextBox(pygame.sprite.Sprite):
         if event.type == pygame.MOUSEBUTTONDOWN:
             # If the user clicked on the textBox rectangle
             if self.__rectangle.collidepoint(event.pos):
-                print(event)
-                print(event.pos)
                 # Toggle the active variable
                 self.__active = not self.__active
             else:
@@ -161,8 +191,10 @@ class TextBox(pygame.sprite.Sprite):
                 elif event.key == pygame.K_BACKSPACE:
                     self.__text = self.__text[:-1]
                 else:
-                    if len(self.__text) > 27:
-                        raise UserInputError('Username cannot have more than 27 characters.')
+                    if len(self.__text) >= 25:
+                        if self.__hidden:
+                            raise UserInputError('Password must have no more than 25 characters.')
+                        raise UserInputError('Username must have no more than 25 characters.')
                     self.__text += event.unicode
                 # Re-render the text
                 if self.__hidden:
