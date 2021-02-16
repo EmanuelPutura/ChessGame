@@ -77,6 +77,32 @@ class BackImageButton(ImageButton):
             if self.rectangle.collidepoint(event.pos):
                 self.parent.widgets_group.empty()
                 self.parent.init_widgets()
+        return True
+
+
+class LoginImageButton(ImageButton):
+    def __init__(self, parent, file_name, width, height, x=0, y=0):
+        super().__init__(parent, file_name, width, height, x, y)
+
+    def update(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            # If the user clicked on the image rectangle
+            if self.rectangle.collidepoint(event.pos):
+                self.parent.widgets_group.empty()
+                self.parent.init_login_widgets()
+        return True
+
+
+class ExitImageButton(ImageButton):
+    def __init__(self, parent, file_name, width, height, x=0, y=0):
+        super().__init__(parent, file_name, width, height, x, y)
+
+    def update(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            # If the user clicked on the image rectangle
+            if self.rectangle.collidepoint(event.pos):
+                return False
+        return True
 
 
 class Label(pygame.sprite.Sprite):
@@ -101,6 +127,22 @@ class Label(pygame.sprite.Sprite):
     @property
     def font(self):
         return self.__font
+
+    @property
+    def x(self):
+        return self.__x
+
+    @property
+    def y(self):
+        return self.__y
+
+    @property
+    def width(self):
+        return self.__width
+
+    @property
+    def height(self):
+        return self.__height
 
     @property
     def text_color(self):
@@ -150,6 +192,7 @@ class CreateAccountTextButton(TextButton):
             if self.__rectangle.collidepoint(event.pos):
                 self.parent.widgets_group.empty()
                 self.parent.init_account_widgets()
+        return True
 
 
 class TextBox(pygame.sprite.Sprite):
@@ -201,6 +244,7 @@ class TextBox(pygame.sprite.Sprite):
                     self.__text_surface = self.__font.render('*' * len(self.__text), 1, self.__text_color)
                 else:
                     self.__text_surface = self.__font.render(self.__text, 1, self.__text_color)
+        return True
 
     def draw(self, surface):
         text_size = self.__text_surface.get_size()
