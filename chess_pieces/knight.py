@@ -14,14 +14,14 @@ class Knight(Piece):
             return False
         for move in self.__possible_moves:
             move_x, move_y = self._x + move[0], self._y + move[1]
-            if x != move_x or y != move_y or not self._validate_board_move(move_x, move_y):
-                return False
+            if not (x != move_x or y != move_y or not self._validate_board_move(move_x, move_y)):
+                return True
             elif x == move_x and y == move_y:
                 return True
-        return True
+        return False
 
     def move(self, x, y):
         if not self.attempt_move(x, y):
-            raise InvalidMoveError('Cannot move to ({}, {}) cell.'.format(x, y))
+            raise InvalidMoveError('InvalidMoveError: Cannot move to ({}, {}) cell.'.format(x, y))
         self._x = x
         self._y = y

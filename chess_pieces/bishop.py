@@ -30,6 +30,6 @@ class Bishop(Piece):
 
     def move(self, x, y):
         if not self.attempt_move(x, y):
-            raise InvalidMoveError('Cannot move to ({}, {}) cell.'.format(x, y))
+            raise InvalidMoveError('InvalidMoveError: Cannot move to ({}, {}) cell.'.format(x, y))
         self._x = x
         self._y = y

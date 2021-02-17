@@ -3,8 +3,8 @@ from errors.exceptions import InvalidMoveError
 
 
 class Rook(Piece):
-    def __init__(self, x, y, color):
-        super().__init__(x, y, color)
+    def __init__(self, parent, x, y, color):
+        super().__init__(parent, x, y, color)
 
     def attempt_move(self, x, y):
         if not self._validate_board_move(x, y):
@@ -37,6 +37,6 @@ class Rook(Piece):
 
     def move(self, x, y):
         if not self.attempt_move(x, y):
-            raise InvalidMoveError('Cannot move to ({}, {}) cell.'.format(x, y))
+            raise InvalidMoveError('InvalidMoveError: Cannot move to ({}, {}) cell.'.format(x, y))
         self._x = x
         self._y = y
