@@ -24,7 +24,10 @@ class Bishop(Piece):
         for index in range(1, abs(self._x - x) + 1):
             row = self._x + index * down
             column = self._y + index * right
-            if self._parent[row][column] is not None or not self._validate_board_move(row, column):
+            if self._parent[row][column] is not None:
+                if row != x or column != y:
+                    return False
+            if not self._validate_board_move(row, column):
                 return False
         return True
 

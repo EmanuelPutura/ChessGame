@@ -12,11 +12,11 @@ class Queen(Piece):
             return False
         if self._parent[x][y] is not None and self._parent[x][y].color == self._color:
             return False
-        rook_type = bishop_type = False
+        rook_type = bishop_type = True
         if abs(self._x - x) != abs(self._y - y):
-            bishop_type = True
+            bishop_type = False
         if (self._x != x and self._y != y) or (self._x == x and self._y == y):
-            rook_type = True
+            rook_type = False
         if rook_type == bishop_type:
             return False
         if bishop_type:
@@ -29,7 +29,10 @@ class Queen(Piece):
             for index in range(1, abs(self._x - x) + 1):
                 row = self._x + index * down
                 column = self._y + index * right
-                if self._parent[row][column] is not None or not self._validate_board_move(row, column):
+                if self._parent[row][column] is not None:
+                    if row != x or column != y:
+                        return False
+                if not self._validate_board_move(row, column):
                     return False
             return True
         elif rook_type:

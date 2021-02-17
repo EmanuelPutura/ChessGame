@@ -54,17 +54,16 @@ class ChessBoard:
             bq/wq - black/white queen
             bk/wk - black/white king
             bp/wp - black/white pawn
-            .     - no piece
         """
         black_pieces_dictionary = {Rook: 'br', Knight: 'bh', Bishop: 'bb', Queen: 'bq', King: 'bk', Pawn: 'bp'}
         white_pieces_dictionary = {Rook: 'wr', Knight: 'wh', Bishop: 'wb', Queen: 'wq', King: 'wk', Pawn: 'wp'}
 
         representation = Texttable()
-        header = [''] + [chr(ord('A') + index) for index in range(8)]
+        header = [''] + [str(index) for index in range(8)]
         representation.header(header)
 
         for row in range(8):
-            row_data = [str(row + 1)]
+            row_data = [str(row)]
             for column in range(8):
                 if self.__board[row][column] is None:
                     row_data.append('')
