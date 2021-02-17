@@ -233,7 +233,3 @@ class MainWindow:
             #     tkinter.Tk().wm_withdraw()
             #     messagebox.showwarning('Unexpected exception', exception)
         pygame.quit()
-
-
-gui = MainWindow()
-gui.run()
