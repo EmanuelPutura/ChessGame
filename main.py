@@ -6,4 +6,7 @@
 
 
 if __name__ == "__main__":
+    # for i, j in zip(range(6, -1, -1),
+    #                 range(6, -1, -1)):
+    #     print(i, j)
     pass

@@ -9,7 +9,7 @@ from presentation.gui.constants import Colors, Dimensions
 from presentation.gui.game_board import GameBoard
 from presentation.gui.gradient_generator import GradientGenerator
 from presentation.gui.widgets import Label, ImageButton, TextBox, CreateAccountTextButton, BackImageButton, \
-    LoginImageButton, TextButton, ExitImageButton
+    LoginImageButton, ExitImageButton
 
 
 class MainWindow:
