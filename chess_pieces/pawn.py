@@ -14,14 +14,21 @@ class Pawn(Piece):
             self.__attack_moves = [(1, -1), (1, 1)]
 
     def attempt_move(self, x, y):
+        if not self._validate_board_move(x, y):
+            return False
         for move in self.__normal_moves:
             move_x, move_y = move[0] + self._x, move[1] + self._y
+            if not self._validate_board_move(move_x, move_y):
+                continue
             if self._parent[move_x][move_y] is not None:
                 break
             if move_x == x and move_y == y:
                 return True
         for move in self.__attack_moves:
-            if move[0] + self._x == x and move[1] + self._y == y and self._parent[x][y] is not None and self._parent[x][y].color != self._color:
+            move_x, move_y = move[0] + self._x, move[1] + self._y
+            if not self._validate_board_move(move_x, move_y):
+                continue
+            if move_x == x and move_y == y and self._parent[x][y] is not None and self._parent[x][y].color != self._color:
                 return True
         return False
 
