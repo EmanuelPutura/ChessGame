@@ -4,3 +4,7 @@ class UserInputError(Exception):
 
 class InvalidMoveError(Exception):
     pass
+
+
+class IsCheckError(InvalidMoveError):
+    pass

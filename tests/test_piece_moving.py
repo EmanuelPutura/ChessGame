@@ -152,14 +152,29 @@ class TestPieceMoving(unittest.TestCase):
         self.assertEqual(board[1][2], Queen(board, 1, 2, PieceColor.BLACK))
 
         # attempt to move the black queen - should work
-        self.__game_service.move(1, 2, 5, 2, PieceColor.BLACK)
+        self.__game_service.move(1, 2, 4, 2, PieceColor.BLACK)
         self.assertEqual(board[1][2], None)
-        self.assertEqual(board[5][2], Queen(board, 5, 2, PieceColor.BLACK))
+        self.assertEqual(board[4][2], Queen(board, 4, 2, PieceColor.BLACK))
+
+        # attempt to move the white king while in chess - should fail
+        self.assertRaises(InvalidMoveError, self.__game_service.move, 5, 3, 4, 3, PieceColor.WHITE)
+
+        # attempt to move the white king while in check - should fail
+        self.assertRaises(InvalidMoveError, self.__game_service.move, 5, 3, 4, 4, PieceColor.WHITE)
 
         # attempt to move the white king, involving a capture - should work
-        self.__game_service.move(5, 3, 5, 2, PieceColor.WHITE)
+        self.__game_service.move(5, 3, 4, 2, PieceColor.WHITE)
         self.assertEqual(board[5][3], None)
-        self.assertEqual(board[5][2], King(board, 5, 2, PieceColor.WHITE))
+        self.assertEqual(board[4][2], King(board, 4, 2, PieceColor.WHITE))
 
         # attempt to move the king over two cells - should fail
-        self.assertRaises(InvalidMoveError, self.__game_service.move, 5, 2, 7, 0, PieceColor.WHITE)
+        self.assertRaises(InvalidMoveError, self.__game_service.move, 4, 2, 2, 2, PieceColor.WHITE)
+
+        # attempt to move the white king, involving entering in check - should fail
+        self.assertRaises(InvalidMoveError, self.__game_service.move, 4, 2, 5, 2, PieceColor.WHITE)
+
+        # attempt to move a white piece while in check - should fail
+        # print(self.__game_service.white_check)
+        # self.assertRaises(InvalidMoveError, self.__game_service.move, 6, 5, 5, 5, PieceColor.WHITE)
+
+        print(board)
