@@ -21,3 +21,24 @@ class King(Piece):
             raise InvalidMoveError('InvalidMoveError: Cannot move to ({}, {}) cell.'.format(x, y))
         self._x = x
         self._y = y
+
+    def get_move_options(self):
+        options = []
+
+        # N movement direction
+        if self._parent.validate_move(self._x - 1, self._y) and self._parent[self._x - 1][self._y] is None:
+            options.append((self._x - 1, self._y))
+
+        # S movement direction
+        if self._parent.validate_move(self._x + 1, self._y) and self._parent[self._x + 1][self._y] is None:
+            options.append((self._x + 1, self._y))
+
+        # W movement direction
+        if self._parent.validate_move(self._x, self._y - 1) and self._parent[self._x][self._y - 1] is None:
+            options.append((self._x, self._y - 1))
+
+        # E movement direction
+        if self._parent.validate_move(self._x, self._y + 1) and self._parent[self._x][self._y + 1] is None:
+            options.append((self._x, self._y + 1))
+
+        return options

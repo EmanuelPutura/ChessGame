@@ -6,7 +6,7 @@ from presentation.gui.constants import Colors, Dimensions
 
 
 class GameBoard(pygame.sprite.Sprite):
-    def __init__(self, main_window, dimension=8, cell_colors=(Colors.WHITE, Colors.BLACK1)):
+    def __init__(self, main_window, dimension=Dimensions.CHESSBOARD_CELLS.value, cell_colors=(Colors.WHITE, Colors.BLACK1)):
         super().__init__()
 
         self.__main_window = main_window
@@ -34,8 +34,8 @@ class GameBoard(pygame.sprite.Sprite):
     def find_board_cell(self, window_x, window_y):
         margin = Dimensions.MARGIN.value
 
-        if window_x < margin or window_y < margin or window_x > self.__chess_board_dimension - margin \
-                or window_y > window_x > self.__chess_board_dimension - margin:
+        if window_x < margin or window_y < margin or window_x > self.__chess_board_dimension + margin \
+                or window_y > self.__chess_board_dimension + margin:
             return None
         return int((window_y - margin) // self.__cell_dimension), int((window_x - margin) // self.__cell_dimension)
 

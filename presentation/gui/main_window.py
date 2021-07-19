@@ -18,6 +18,8 @@ class MainWindow:
         pygame.init()
         self.__game_service = game_service
         self.__white_turn = True
+        self.__current_piece = None
+
         self.__window = pygame.display.set_mode((Dimensions.WINDOW_WIDTH.value, Dimensions.WINDOW_HEIGHT.value))
         pygame.display.set_caption('Quess')
         self.__window.fill(Colors.BLACK2.value)
@@ -230,6 +232,17 @@ class MainWindow:
         exit_button = ExitImageButton(self, r'\\assets\exit.png', widget_width, widget_height, widget_x, widget_y)
         exit_button.add(self.__widgets_group)
 
+    def __draw_piece_move_options(self, piece):
+        for move in piece.get_move_options():
+            self.__draw_circle_in_cell_middle(move[0], move[1])
+
+    def __draw_circle_in_cell_middle(self, row, column):
+        cell_dimension = (self.__window.get_size()[1] - Dimensions.MARGIN.value * 2) / Dimensions.CHESSBOARD_CELLS.value
+        x = Dimensions.MARGIN.value + column * cell_dimension
+        y = Dimensions.MARGIN.value + row * cell_dimension
+        center = (x + cell_dimension / 2, y + cell_dimension / 2)
+        pygame.draw.circle(self.__window, Colors.GRAY.value, center, 10)
+
     def __draw_margin(self):
         line_dictionary = {0: ((37, 37), (662, 37)), 1: ((660, 37), (660, 660)), 2: ((660, 660), (37, 660)),
                            3: ((37, 37), (37, 660))}
@@ -255,18 +268,20 @@ class MainWindow:
                         table_position = self.__game_board.find_board_cell(position[0], position[1])
                         if table_position is not None:
                             moving_color = PieceColor.WHITE if self.__white_turn else PieceColor.BLACK
-                            piece = self.__game_service.getPiece(table_position[0], table_position[1])
-
-                            piece_name = piece.name
-                            print(piece_name)
-
-                            self.__white_turn = not self.__white_turn
+                            self.__current_piece = self.__game_service.getPiece(table_position[0], table_position[1])
+                            if self.__current_piece is not None and self.__current_piece.color != moving_color:
+                                self.__current_piece = None
+                            elif self.__current_piece is not None:
+                                self.__white_turn = not self.__white_turn
 
                 self.__window.fill(Colors.BLACK2.value)
                 self.__gradient_generator.fill_gradient(True)
                 self.__draw_margin()
 
                 self.__game_board.draw()
+
+                if self.__current_piece is not None:
+                    self.__draw_piece_move_options(self.__current_piece)
 
                 for widget in self.__widgets_group:
                     widget.draw(self.__window)

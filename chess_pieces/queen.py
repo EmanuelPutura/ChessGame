@@ -30,3 +30,56 @@ class Queen(Piece):
             raise InvalidMoveError('InvalidMoveError: Cannot move to ({}, {}) cell.'.format(x, y))
         self._x = x
         self._y = y
+
+    def get_move_options(self):
+        options = []
+
+        # N-W movement options
+        x = self.x - 1
+        y = self._y - 1
+        while self._parent.validate_move(x, y) and self._parent[x][y] is None:
+            options.append((x, y))
+
+        # N-E movement options
+        x = self._x - 1
+        y = self._y + 1
+        while self._parent.validate_move(x, y) and self._parent[x][y] is None:
+            options.append((x, y))
+
+        # S-W movement options
+        x = self._x + 1
+        y = self._y - 1
+        while self._parent.validate_move(x, y) and self._parent[x][y] is None:
+            options.append((x, y))
+
+        # S-E movement options
+        x = self._x + 1
+        y = self._y + 1
+        while self._parent.validate_move(x, y) and self._parent[x][y] is None:
+            options.append((x, y))
+
+        # N movement options
+        x = self._x - 1
+        y = self._y
+        while self._parent.validate_move(x, y) and self._parent[x][y] is None:
+            options.append((x, y))
+
+        # S movement options
+        x = self._x + 1
+        y = self._y
+        while self._parent.validate_move(x, y) and self._parent[x][y] is None:
+            options.append((x, y))
+
+        # W movement options
+        x = self._x
+        y = self._y - 1
+        while self._parent.validate_move(x, y) and self._parent[x][y] is None:
+            options.append((x, y))
+
+        # E movement options
+        x = self._x
+        y = self._y + 1
+        while self._parent.validate_move(x, y) and self._parent[x][y] is None:
+            options.append((x, y))
+
+        return options

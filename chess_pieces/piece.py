@@ -37,6 +37,10 @@ class Piece:
     def move(self, *args):
         pass
 
+    @abstractmethod
+    def get_move_options(self):
+        pass
+
     def __eq__(self, other):
         return self._x == other.x and self._y == other.y and self._color == other.color
 

@@ -13,6 +13,11 @@ class ChessBoard:
     def __init__(self):
         self.__board = self.__create_board()
 
+    def validate_move(self, x, y):
+        if x < 0 or y < 0 or x > 7 or y > 7:
+            return False
+        return True
+
     def __create_board(self):
         """
             black/white rook   - code 0/10

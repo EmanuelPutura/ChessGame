@@ -5,6 +5,7 @@ class Dimensions(Enum):
     MARGIN = 40
     WINDOW_WIDTH = 900
     WINDOW_HEIGHT = 700
+    CHESSBOARD_CELLS = 8
 
 
 class Colors(Enum):

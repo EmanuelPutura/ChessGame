@@ -6,6 +6,7 @@ from tools.constants import PieceColor
 class Pawn(Piece):
     def __init__(self, parent, x, y, color):
         super().__init__(parent, x, y, color)
+        self.__made_move = False
         if self._color == PieceColor.WHITE:
             self.__normal_moves = [(-1, 0), (-2, 0)]
             self.__attack_moves = [(-1, -1), (-1, 1)]
@@ -39,3 +40,23 @@ class Pawn(Piece):
             self.__normal_moves.pop()
         self._x = x
         self._y = y
+        self.__made_move = True
+
+    def get_move_options(self):
+        options = []
+
+        # normal moves
+        for move in self.__normal_moves[:-1]:
+            if self._parent.validate_move(self._x + move[0], self._y + move[1]) and self._parent[self._x + move[0]][self._y + move[1]] is None:
+                options.append((self._x + move[0], self._y + move[1]))
+        if not self.__made_move and self._parent.validate_move(self._x + self.__normal_moves[1][0], self._y + self.__normal_moves[1][1]) \
+                and self._parent[self._x + self.__normal_moves[1][0]][self._y + self.__normal_moves[1][1]] is None:
+            options.append((self._x + self.__normal_moves[1][0], self._y + self.__normal_moves[1][1]))
+
+        # attack moves
+        for move in self.__attack_moves:
+            if self._parent.validate_move(self._x + move[0], self._y + move[1]) and self._parent[self._x + move[0]][self._y + move[1]] is not None \
+                    and self._parent[self._x + move[0]][self._y + move[1]].color != self._color:
+                options.append((self._x + move[0], self._y + move[1]))
+
+        return options
