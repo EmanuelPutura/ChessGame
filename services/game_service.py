@@ -40,9 +40,11 @@ class GameService:
                 return True
         return False
 
-    def __checkmate(self, color):
+    def __checkmate(self, moving_color):
         king_color_dictionary = {PieceColor.WHITE: self.__white_king, PieceColor.BLACK: self.__black_king}
-        king = king_color_dictionary[color]
+        piece_opposite_color_dictionary = {PieceColor.WHITE: self.__black_pieces, PieceColor.BLACK: self.__white_pieces}
+        piece_color_dictionary = {PieceColor.WHITE: self.__white_pieces, PieceColor.BLACK: self.__black_pieces}
+        king = king_color_dictionary[moving_color]
         directions = [-1, 0, 1]
 
         king_x, king_y = king.x, king.y
@@ -54,21 +56,36 @@ class GameService:
                 current_y = king_y + direction_y
                 try:
                     king.move(current_x, current_y)
-                    check = self.__check(color)
+                    self.__chess_board[king_x][king_y] = None
+                    last_piece = self.__chess_board[current_x][current_y]
+                    self.__chess_board[current_x][current_y] = king
+
+                    if last_piece is not None:
+                        piece_opposite_color_dictionary[moving_color].remove(last_piece)
+                    check = self.__check(moving_color)
+
                     king.move(king_x, king_y)
+                    self.__chess_board[king_x][king_y] = king
+                    self.__chess_board[current_x][current_y] = last_piece
+
+                    if last_piece is not None:
+                        piece_opposite_color_dictionary[moving_color].append(last_piece)
+
                     if not check:
                         return False
                 except InvalidMoveError:
                     pass
+                # for piece in piece_color_dictionary[moving_color]:
+                # TODO: case when check is blocked by moving a new piece
         return True
+
+    def getPiece(self, x, y):
+        return self.__chess_board[x][y]
 
     def move(self, source_x, source_y, destination_x, destination_y, moving_color):
         # get the current color king
         king_color_dictionary = {PieceColor.WHITE: self.__white_king, PieceColor.BLACK: self.__black_king}
         king = king_color_dictionary[moving_color]
-        # if self.__check(moving_color) and self.__checkmate(moving_color):
-        #     # return True
-        #     pass
 
         check = self.__check(moving_color)
 
@@ -100,4 +117,7 @@ class GameService:
                 raise InvalidMoveError('Check! You must move your king!')
             raise InvalidMoveError('Impossible move: check!')
 
+        opposite_color_dictionary = {PieceColor.WHITE: PieceColor.BLACK, PieceColor.BLACK: PieceColor.WHITE}
+        if self.__check(opposite_color_dictionary[moving_color]) and self.__checkmate(opposite_color_dictionary[moving_color]):
+            return True
         return False

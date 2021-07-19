@@ -105,6 +105,19 @@ class ExitImageButton(ImageButton):
         return True
 
 
+class PlayAsGuestImageButton(ImageButton):
+    def __init__(self, parent, file_name, width, height, x=0, y=0):
+        super().__init__(parent, file_name, width, height, x, y)
+
+    def update(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            # If the user clicked on the image rectangle
+            if self.rectangle.collidepoint(event.pos):
+                self.parent.widgets_group.empty()
+                self.parent.init_play_as_guest_widgets()
+        return True
+
+
 class Label(pygame.sprite.Sprite):
     def __init__(self, parent, text, font, width, height, x=0, y=0, text_color=Colors.WHITE.value):
         super().__init__()
@@ -154,15 +167,23 @@ class Label(pygame.sprite.Sprite):
         self.__rectangle = pygame.Rect(self.__x, self.__y, self.__width, self.__height)
         self.__text_color = text_color
 
-    def draw(self, surface, middle=True):
+    def draw(self, surface, middle=False):
         text_size = self.__text.get_size()
         text_x = self.__rectangle.centerx - text_size[0] / 2
         text_y = self.__rectangle.centery - text_size[1] / 2
 
-        if middle:
+        if not middle:
             surface.blit(self.__text, (self.__x, self.__y))
         else:
             surface.blit(self.__text, (text_x, text_y))
+
+
+class MiddleLabel(Label):
+    def __init__(self, parent, text, font, width, height, x=0, y=0, text_color=Colors.WHITE.value):
+        super().__init__(parent, text, font, width, height, x, y, text_color)
+
+    def draw(self, surface, middle=False):
+        super().draw(surface, True)
 
 
 class TextButton(Label):

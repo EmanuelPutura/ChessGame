@@ -46,7 +46,6 @@ class GameBoard(pygame.sprite.Sprite):
                 self.__fill_cell(cell_surface, row, column)
                 cell_rectangle = cell_surface.get_rect(left=Dimensions.MARGIN.value + column * self.__cell_dimension,
                                                        top=Dimensions.MARGIN.value + row * self.__cell_dimension)
-
                 self.__main_window.blit(cell_surface, cell_rectangle)
         self.__draw_pieces()
 

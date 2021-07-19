@@ -22,6 +22,10 @@ class Piece:
     def color(self):
         return self._color
 
+    @property
+    def name(self):
+        return self.__class__.__name__
+
     def _validate_board_move(self, x, y):
         return not (x < 0 or y < 0 or x > 7 or y > 7)
 

@@ -8,8 +8,8 @@ from presentation.gui.main_window import MainWindow
 from services.game_service import GameService
 
 if __name__ == "__main__":
-    # gui = MainWindow()
-    # gui.run()
     game_service = GameService()
-    consoleUI = ConsoleUI(game_service)
-    consoleUI.run()
+    gui = MainWindow(game_service)
+    gui.run()
+    # consoleUI = ConsoleUI(game_service)
+    # consoleUI.run()

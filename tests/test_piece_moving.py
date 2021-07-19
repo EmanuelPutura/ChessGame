@@ -173,8 +173,61 @@ class TestPieceMoving(unittest.TestCase):
         # attempt to move the white king, involving entering in check - should fail
         self.assertRaises(InvalidMoveError, self.__game_service.move, 4, 2, 5, 2, PieceColor.WHITE)
 
-        # attempt to move a white piece while in check - should fail
-        # print(self.__game_service.white_check)
-        # self.assertRaises(InvalidMoveError, self.__game_service.move, 6, 5, 5, 5, PieceColor.WHITE)
+        # attempt to move the white horse - should work
+        self.__game_service.move(1, 5, 2, 7, PieceColor.WHITE)
+        self.assertEqual(board[1][5], None)
+        self.assertEqual(board[2][7], Knight(board, 2, 7, PieceColor.WHITE))
+
+        # attempt to move the black rook - should work
+        self.__game_service.move(6, 1, 0, 1, PieceColor.BLACK)
+        self.assertEqual(board[6][1], None)
+        self.assertEqual(board[0][1], Rook(board, 0, 1, PieceColor.BLACK))
+
+        # attempt to move the white horse - should work
+        self.__game_service.move(7, 1, 5, 2, PieceColor.WHITE)
+        self.assertEqual(board[7][1], None)
+        self.assertEqual(board[5][2], Knight(board, 5, 2, PieceColor.WHITE))
+
+        # attempt to move the white rook - should work
+        self.__game_service.move(7, 0, 7, 1, PieceColor.WHITE)
+        self.assertEqual(board[7][0], None)
+        self.assertEqual(board[7][1], Rook(board, 7, 1, PieceColor.WHITE))
+
+        # attempt to move the black knight - should work
+        self.__game_service.move(0, 6, 2, 5, PieceColor.BLACK)
+        self.assertEqual(board[0][6], None)
+        self.assertEqual(board[2][5], Knight(board, 2, 5, PieceColor.BLACK))
+
+        # attempt to move the black knight - should work
+        self.__game_service.move(2, 5, 3, 3, PieceColor.BLACK)
+        self.assertEqual(board[2][5], None)
+        self.assertEqual(board[3][3], Knight(board, 3, 3, PieceColor.BLACK))
+
+        # attempt to move the white rook - should work
+        self.__game_service.move(7, 1, 1, 1, PieceColor.WHITE)
+        self.assertEqual(board[7][1], None)
+        self.assertEqual(board[1][1], Rook(board, 1, 1, PieceColor.WHITE))
+
+        # attempt to move the black knight - should work
+        self.__game_service.move(3, 3, 2, 1, PieceColor.BLACK)
+        self.assertEqual(board[3][3], None)
+        self.assertEqual(board[2][1], Knight(board, 2, 1, PieceColor.BLACK))
+
+        # attempt to move the white king, involving a capture - should work
+        self.__game_service.move(4, 2, 3, 2, PieceColor.WHITE)
+        self.assertEqual(board[4][2], None)
+        self.assertEqual(board[3][2], King(board, 3, 2, PieceColor.WHITE))
+
+        # # attempt to move the black knight - should work
+        # self.__game_service.move(2, 1, 0, 2, PieceColor.BLACK)
+        # self.assertEqual(board[2][1], None)
+        # self.assertEqual(board[0][2], Knight(board, 0, 2, PieceColor.BLACK))
+
+        # TODO: why doesnt it work?
+        # attempt to move the white rook, involving a capture, but no checkmate - should work
+        game_result = self.__game_service.move(1, 1, 0, 1, PieceColor.WHITE)
+        self.assertEqual(board[1][1], None)
+        self.assertEqual(board[0][1], Rook(board, 0, 1, PieceColor.WHITE))
+        # self.assertEqual(game_result, False)
 
         print(board)

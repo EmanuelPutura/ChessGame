@@ -9,12 +9,15 @@ from presentation.gui.constants import Colors, Dimensions
 from presentation.gui.game_board import GameBoard
 from presentation.gui.gradient_generator import GradientGenerator
 from presentation.gui.widgets import Label, ImageButton, TextBox, CreateAccountTextButton, BackImageButton, \
-    LoginImageButton, ExitImageButton
+    LoginImageButton, ExitImageButton, PlayAsGuestImageButton
+from tools.constants import PieceColor
 
 
 class MainWindow:
-    def __init__(self):
+    def __init__(self, game_service):
         pygame.init()
+        self.__game_service = game_service
+        self.__white_turn = True
         self.__window = pygame.display.set_mode((Dimensions.WINDOW_WIDTH.value, Dimensions.WINDOW_HEIGHT.value))
         pygame.display.set_caption('Quess')
         self.__window.fill(Colors.BLACK2.value)
@@ -23,6 +26,7 @@ class MainWindow:
         self.__draw_margin()
         self.__game_board = GameBoard(self.__window)
         self.__widgets_group = pygame.sprite.Group()
+        self.__turn_label = None
         self.init_widgets()
 
     @property
@@ -77,7 +81,7 @@ class MainWindow:
         widget_width = screen_width - screen_height - margin
         widget_height = margin
         widget_y = widget_y + widget_height + cell_dimension + margin
-        guest_button = ImageButton(self, r'\\assets\guest.png', widget_width, widget_height, widget_x, widget_y)
+        guest_button = PlayAsGuestImageButton(self, r'\\assets\guest.png', widget_width, widget_height, widget_x, widget_y)
         guest_button.add(self.__widgets_group)
 
         widget_y = widget_y + widget_height + 10
@@ -193,6 +197,39 @@ class MainWindow:
         exit_button = ExitImageButton(self, r'\\assets\exit.png', widget_width, widget_height, widget_x, widget_y)
         exit_button.add(self.__widgets_group)
 
+    def init_play_as_guest_widgets(self):
+        screen_width, screen_height = pygame.display.get_surface().get_size()
+        margin = Dimensions.MARGIN.value
+        cell_dimension = self.__game_board.cell_dimension
+        widget_font = pygame.font.SysFont('Benne', 20)
+
+        widget_x = screen_height + 22.5
+        widget_width = 110
+        widget_height = 110
+
+        get_widget_y = lambda middle, height: middle - height / 2
+        widget_y = get_widget_y(margin + cell_dimension / 2, widget_height) + margin
+
+        widget_x -= 5
+        widget_y = widget_y + widget_height + 10
+
+        self.__turn_label = Label(self, 'Current turn: white player', widget_font, widget_width, widget_height, Dimensions.MARGIN.value,
+                                Dimensions.MARGIN.value - 20, Colors.WHITE.value)
+        self.__turn_label.add(self.__widgets_group)
+
+        widget_x = screen_height
+        widget_width = screen_width - screen_height - margin
+        widget_height = margin
+        widget_y = widget_y + widget_height + cell_dimension + margin
+
+        widget_y = widget_y + widget_height + 150
+        back_button = BackImageButton(self, r'\\assets\back.png', widget_width, widget_height, widget_x, widget_y)
+        back_button.add(self.__widgets_group)
+
+        widget_y = widget_y + widget_height + 10
+        exit_button = ExitImageButton(self, r'\\assets\exit.png', widget_width, widget_height, widget_x, widget_y)
+        exit_button.add(self.__widgets_group)
+
     def __draw_margin(self):
         line_dictionary = {0: ((37, 37), (662, 37)), 1: ((660, 37), (660, 660)), 2: ((660, 660), (37, 660)),
                            3: ((37, 37), (37, 660))}
@@ -215,6 +252,15 @@ class MainWindow:
                         running = False
                     if event.type == pygame.MOUSEBUTTONUP:
                         position = pygame.mouse.get_pos()
+                        table_position = self.__game_board.find_board_cell(position[0], position[1])
+                        if table_position is not None:
+                            moving_color = PieceColor.WHITE if self.__white_turn else PieceColor.BLACK
+                            piece = self.__game_service.getPiece(table_position[0], table_position[1])
+
+                            piece_name = piece.name
+                            print(piece_name)
+
+                            self.__white_turn = not self.__white_turn
 
                 self.__window.fill(Colors.BLACK2.value)
                 self.__gradient_generator.fill_gradient(True)
