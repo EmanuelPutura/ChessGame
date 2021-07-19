@@ -268,10 +268,19 @@ class MainWindow:
                         table_position = self.__game_board.find_board_cell(position[0], position[1])
                         if table_position is not None:
                             moving_color = PieceColor.WHITE if self.__white_turn else PieceColor.BLACK
+
                             self.__current_piece = self.__game_service.getPiece(table_position[0], table_position[1])
-                            if self.__current_piece is not None and self.__current_piece.color != moving_color:
-                                self.__current_piece = None
-                            elif self.__current_piece is not None:
+
+                            if self.__current_piece is not None:
+                                self.__draw_piece_move_options(self.__current_piece)
+
+                            if self.__current_piece is not None and table_position in self.__current_piece.get_move_options():
+                                # make the move
+
+                                # TODO: make the move
+                                print("MOVE")
+
+                                self.__game_service.move(self.__current_piece.x, self.__current_piece.y, table_position[0], table_position[1], moving_color)
                                 self.__white_turn = not self.__white_turn
 
                 self.__window.fill(Colors.BLACK2.value)
