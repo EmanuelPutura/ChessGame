@@ -51,39 +51,49 @@ class Bishop(Piece):
         self._y = y
 
     def get_move_options(self):
+        # TODO: give up on code duplicates for bishop, queen and rook
+
         options = []
 
         # N-W movement options
         x = self.x - 1
         y = self._y - 1
 
-        while self._parent.validate_move(x, y) and self._parent[x][y] is None:
+        while self._parent.validate_move(x, y) and (self._parent[x][y] is None or self._parent[x][y].color != self._color):
+            options.append((x, y))
+            if self._parent[x][y] is not None and self._parent[x][y].color != self._color:
+                break
             x -= 1
             y -= 1
-            options.append((x, y))
 
         # N-E movement options
         x = self._x - 1
         y = self._y + 1
-        while self._parent.validate_move(x, y) and self._parent[x][y] is None:
+        while self._parent.validate_move(x, y) and (self._parent[x][y] is None or self._parent[x][y].color != self._color):
+            options.append((x, y))
+            if self._parent[x][y] is not None and self._parent[x][y].color != self._color:
+                break
             x -= 1
             y += 1
-            options.append((x, y))
 
         # S-W movement options
         x = self._x + 1
         y = self._y - 1
-        while self._parent.validate_move(x, y) and self._parent[x][y] is None:
+        while self._parent.validate_move(x, y) and (self._parent[x][y] is None or self._parent[x][y].color != self._color):
+            options.append((x, y))
+            if self._parent[x][y] is not None and self._parent[x][y].color != self._color:
+                break
             x += 1
             y -= 1
-            options.append((x, y))
 
         # S-E movement options
         x = self._x + 1
         y = self._y + 1
-        while self._parent.validate_move(x, y) and self._parent[x][y] is None:
+        while self._parent.validate_move(x, y) and (self._parent[x][y] is None or self._parent[x][y].color != self._color):
+            options.append((x, y))
+            if self._parent[x][y] is not None and self._parent[x][y].color != self._color:
+                break
             x += 1
             y += 1
-            options.append((x, y))
 
         return options
