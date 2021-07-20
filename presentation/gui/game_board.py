@@ -3,12 +3,14 @@ import os
 import pygame
 
 from presentation.gui.constants import Colors, Dimensions
+from tools.constants import PieceColor
 
 
 class GameBoard(pygame.sprite.Sprite):
-    def __init__(self, main_window, dimension=Dimensions.CHESSBOARD_CELLS.value, cell_colors=(Colors.WHITE, Colors.BLACK1)):
+    def __init__(self, board, main_window, dimension=Dimensions.CHESSBOARD_CELLS.value, cell_colors=(Colors.WHITE, Colors.BLACK1)):
         super().__init__()
 
+        self.__board = board
         self.__main_window = main_window
         self.__surface = pygame.Surface((dimension, dimension))
         self.__rectangle = self.__surface.get_rect()
@@ -59,76 +61,21 @@ class GameBoard(pygame.sprite.Sprite):
         self.__main_window.blit(image, position)
 
     def __draw_pieces(self):
-        # draw the black pawns
-        for column in range(self.__dimension):
-            self.__draw_piece(r'\\assets\black_pawn.png', (Dimensions.MARGIN.value + column * self.__cell_dimension,
-                                                           Dimensions.MARGIN.value + self.__cell_dimension), self.__cell_dimension)
+        # black pieces dict
+        black_pieces = {"pawn": r'\\assets\black_pawn.png', "rook": r'\\assets\black_rook.png', "knight": r'\\assets\black_knight.png',
+                        "bishop": r'\\assets\black_bishop.png', "queen": r'\\assets\black_queen.png', "king": r'\\assets\black_king.png'}
 
-        # draw the white pawns
-        for column in range(self.__dimension):
-            self.__draw_piece(r'\\assets\white_pawn.png', (Dimensions.MARGIN.value + column * self.__cell_dimension,
-                                                           Dimensions.MARGIN.value + self.__cell_dimension * (
-                                                                       self.__dimension - 2)), self.__cell_dimension)
+        # white pieces dict
+        white_pieces = {"pawn": r'\\assets\white_pawn.png', "rook": r'\\assets\white_rook.png', "knight": r'\\assets\white_knight.png',
+                        "bishop": r'\\assets\white_bishop.png', "queen": r'\\assets\white_queen.png', "king": r'\\assets\white_king.png'}
 
-        # draw the black rooks
-        self.__draw_piece(r'\\assets\black_rook.png', (Dimensions.MARGIN.value, Dimensions.MARGIN.value),
-                          self.__cell_dimension)
-        self.__draw_piece(r'\\assets\black_rook.png', (Dimensions.MARGIN.value +
-                                                       self.__cell_dimension * (self.__dimension - 1),
-                                                       Dimensions.MARGIN.value), self.__cell_dimension)
+        # match color to dictionary
+        colors_dictionary = {PieceColor.WHITE: white_pieces, PieceColor.BLACK: black_pieces}
 
-        # draw the white rooks
-        self.__draw_piece(r'\\assets\white_rook.png', (Dimensions.MARGIN.value, Dimensions.MARGIN.value +
-                                                       self.__cell_dimension * (self.__dimension - 1)), self.__cell_dimension)
-
-        self.__draw_piece(r'\\assets\white_rook.png',
-                          (Dimensions.MARGIN.value + self.__cell_dimension * (self.__dimension - 1),
-                           Dimensions.MARGIN.value + self.__cell_dimension * (self.__dimension - 1)), self.__cell_dimension)
-
-        # draw the black knights
-        self.__draw_piece(r'\\assets\black_knight.png', (Dimensions.MARGIN.value + self.__cell_dimension,
-                                                         Dimensions.MARGIN.value), self.__cell_dimension)
-        self.__draw_piece(r'\\assets\black_knight.png',
-                          (Dimensions.MARGIN.value + self.__cell_dimension * (self.__dimension - 2),
-                           Dimensions.MARGIN.value), self.__cell_dimension)
-
-        # draw the white knights
-        self.__draw_piece(r'\\assets\white_knight.png', (Dimensions.MARGIN.value + self.__cell_dimension,
-                                                         Dimensions.MARGIN.value + self.__cell_dimension * (
-                                                                     self.__dimension - 1)), self.__cell_dimension)
-        self.__draw_piece(r'\\assets\white_knight.png',
-                          (Dimensions.MARGIN.value + self.__cell_dimension * (self.__dimension - 2),
-                           Dimensions.MARGIN.value + self.__cell_dimension * (self.__dimension - 1)), self.__cell_dimension)
-
-        # draw the black bishops
-        self.__draw_piece(r'\\assets\black_bishop.png', (Dimensions.MARGIN.value + self.__cell_dimension * 2,
-                                                         Dimensions.MARGIN.value), self.__cell_dimension)
-        self.__draw_piece(r'\\assets\black_bishop.png',
-                          (Dimensions.MARGIN.value + self.__cell_dimension * (self.__dimension - 3),
-                           Dimensions.MARGIN.value), self.__cell_dimension)
-
-        # draw the white bishops
-        self.__draw_piece(r'\\assets\white_bishop.png', (Dimensions.MARGIN.value + self.__cell_dimension * 2,
-                                                         Dimensions.MARGIN.value + self.__cell_dimension * (
-                                                                     self.__dimension - 1)), self.__cell_dimension)
-        self.__draw_piece(r'\\assets\white_bishop.png',
-                          (Dimensions.MARGIN.value + self.__cell_dimension * (self.__dimension - 3),
-                           Dimensions.MARGIN.value + self.__cell_dimension * (self.__dimension - 1)), self.__cell_dimension)
-
-        # draw the black queen
-        self.__draw_piece(r'\\assets\black_queen.png', (Dimensions.MARGIN.value + self.__cell_dimension * 3,
-                                                        Dimensions.MARGIN.value), self.__cell_dimension)
-
-        # draw the white queen
-        self.__draw_piece(r'\\assets\white_queen.png', (Dimensions.MARGIN.value + self.__cell_dimension * 3,
-                                                        Dimensions.MARGIN.value + self.__cell_dimension * (
-                                                                    self.__dimension - 1)), self.__cell_dimension)
-
-        # draw the black king
-        self.__draw_piece(r'\\assets\black_king.png', (Dimensions.MARGIN.value + self.__cell_dimension * 4,
-                                                       Dimensions.MARGIN.value), self.__cell_dimension)
-
-        # draw the white king
-        self.__draw_piece(r'\\assets\white_king.png', (Dimensions.MARGIN.value + self.__cell_dimension * 4,
-                                                       Dimensions.MARGIN.value + self.__cell_dimension * (
-                                                                   self.__dimension - 1)), self.__cell_dimension)
+        for row in range(self.__dimension):
+            for column in range(self.__dimension):
+                if self.__board[row][column] is not None:
+                    piece = self.__board[row][column]
+                    piece_colour, piece_name = piece.name.split()[0], piece.name.split()[1]
+                    self.__draw_piece(colors_dictionary[piece.color][piece_name], (Dimensions.MARGIN.value + column * self.__cell_dimension,
+                                      Dimensions.MARGIN.value + row * self.__cell_dimension), self.__cell_dimension)

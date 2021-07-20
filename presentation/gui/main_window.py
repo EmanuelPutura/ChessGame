@@ -26,7 +26,7 @@ class MainWindow:
         self.__gradient_generator = GradientGenerator(self.__window, Colors.BLACK3.value, Colors.BLACK2.value)
         self.__gradient_generator.fill_gradient(True)
         self.__draw_margin()
-        self.__game_board = GameBoard(self.__window)
+        self.__game_board = GameBoard(self.__game_service.board, self.__window)
         self.__widgets_group = pygame.sprite.Group()
         self.__turn_label = None
         self.init_widgets()
@@ -253,6 +253,7 @@ class MainWindow:
             pygame.draw.line(self.__window, Colors.BLACK1.value, start, end, 4)
 
     def run(self):
+        draw_options = False
         running = True
         while running:
             try:
@@ -266,22 +267,21 @@ class MainWindow:
                     if event.type == pygame.MOUSEBUTTONUP:
                         position = pygame.mouse.get_pos()
                         table_position = self.__game_board.find_board_cell(position[0], position[1])
+
                         if table_position is not None:
                             moving_color = PieceColor.WHITE if self.__white_turn else PieceColor.BLACK
-
-                            self.__current_piece = self.__game_service.getPiece(table_position[0], table_position[1])
-
-                            if self.__current_piece is not None:
-                                self.__draw_piece_move_options(self.__current_piece)
-
-                            if self.__current_piece is not None and table_position in self.__current_piece.get_move_options():
+                            if self.__current_piece is not None and self.__current_piece.color == moving_color and table_position in self.__current_piece.get_move_options():
                                 # make the move
-
-                                # TODO: make the move
-                                print("MOVE")
-
-                                self.__game_service.move(self.__current_piece.x, self.__current_piece.y, table_position[0], table_position[1], moving_color)
                                 self.__white_turn = not self.__white_turn
+                                self.__game_service.move(self.__current_piece.x, self.__current_piece.y, table_position[0], table_position[1], moving_color)
+                                self.__current_piece = None
+                            else:
+                                self.__current_piece = self.__game_service.getPiece(table_position[0], table_position[1])
+                            if self.__current_piece is not None and self.__current_piece.color == moving_color:
+                                draw_options = True
+                                self.__draw_piece_move_options(self.__current_piece)
+                            else:
+                                draw_options = False
 
                 self.__window.fill(Colors.BLACK2.value)
                 self.__gradient_generator.fill_gradient(True)
@@ -289,7 +289,7 @@ class MainWindow:
 
                 self.__game_board.draw()
 
-                if self.__current_piece is not None:
+                if self.__current_piece is not None and draw_options:
                     self.__draw_piece_move_options(self.__current_piece)
 
                 for widget in self.__widgets_group:
