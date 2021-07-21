@@ -14,9 +14,7 @@ class King(Piece):
             return False
         if abs(self._x - x) > 1 or abs(self._y - y) > 1:
             return False
-
-        # now check for the case when the king enters a position where it could be captured
-        return self.__checkMoveForCaptureDanger(x, y)
+        return self.__checkMoveForCaptureDanger(x, y)  # now check for the case when the king enters a position where it could be captured
 
     def __checkMoveForCaptureDanger(self, x, y):
         directions = []

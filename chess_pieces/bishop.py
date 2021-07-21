@@ -2,7 +2,7 @@ from chess_pieces.piece import Piece
 from errors.exceptions import InvalidMoveError
 
 
-class BishopTypeMovement(Piece):
+class DiagonalTypeMovement(Piece):
     def __init__(self, parent, x, y, color):
         super().__init__(parent, x, y, color)
 
@@ -27,7 +27,23 @@ class BishopTypeMovement(Piece):
         pass
 
     def get_move_options(self):
-        pass
+        # NW, NE, SW, SE directions
+        directions = [(-1, -1), (-1, 1), (1, -1), (1, 1)]
+
+        options = []
+        for direction in directions:
+            x = self._x + direction[0]
+            y = self._y + direction[1]
+
+            while self._parent.validate_move(x, y) and (
+                    self._parent[x][y] is None or self._parent[x][y].color != self._color):
+                options.append((x, y))
+                if self._parent[x][y] is not None and self._parent[x][y].color != self._color:
+                    break
+                x += direction[0]
+                y += direction[1]
+
+        return options
 
 
 class Bishop(Piece):
@@ -42,7 +58,7 @@ class Bishop(Piece):
 
         if self._parent[x][y] is not None and self._parent[x][y].color == self._color:
             return False
-        return BishopTypeMovement(self._parent, self._x, self._y, self._color).attempt_move(x, y)
+        return DiagonalTypeMovement(self._parent, self._x, self._y, self._color).attempt_move(x, y)
 
     def move(self, x, y):
         if not self.attempt_move(x, y):
@@ -51,49 +67,4 @@ class Bishop(Piece):
         self._y = y
 
     def get_move_options(self):
-        # TODO: give up on code duplicates for bishop, queen and rook
-
-        options = []
-
-        # N-W movement options
-        x = self.x - 1
-        y = self._y - 1
-
-        while self._parent.validate_move(x, y) and (self._parent[x][y] is None or self._parent[x][y].color != self._color):
-            options.append((x, y))
-            if self._parent[x][y] is not None and self._parent[x][y].color != self._color:
-                break
-            x -= 1
-            y -= 1
-
-        # N-E movement options
-        x = self._x - 1
-        y = self._y + 1
-        while self._parent.validate_move(x, y) and (self._parent[x][y] is None or self._parent[x][y].color != self._color):
-            options.append((x, y))
-            if self._parent[x][y] is not None and self._parent[x][y].color != self._color:
-                break
-            x -= 1
-            y += 1
-
-        # S-W movement options
-        x = self._x + 1
-        y = self._y - 1
-        while self._parent.validate_move(x, y) and (self._parent[x][y] is None or self._parent[x][y].color != self._color):
-            options.append((x, y))
-            if self._parent[x][y] is not None and self._parent[x][y].color != self._color:
-                break
-            x += 1
-            y -= 1
-
-        # S-E movement options
-        x = self._x + 1
-        y = self._y + 1
-        while self._parent.validate_move(x, y) and (self._parent[x][y] is None or self._parent[x][y].color != self._color):
-            options.append((x, y))
-            if self._parent[x][y] is not None and self._parent[x][y].color != self._color:
-                break
-            x += 1
-            y += 1
-
-        return options
+        return DiagonalTypeMovement(self._parent, self._x, self._y, self._color).get_move_options()

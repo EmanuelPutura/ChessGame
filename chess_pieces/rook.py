@@ -32,6 +32,24 @@ class RookTypeMovement(Piece):
     def move(self, *args):
         pass
 
+    def get_move_options(self):
+        # N, S, W, E directions
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+
+        options = []
+        for direction in directions:
+            x = self._x + direction[0]
+            y = self._y + direction[1]
+            while self._parent.validate_move(x, y) and (
+                    self._parent[x][y] is None or self._parent[x][y].color != self._color):
+                options.append((x, y))
+                if self._parent[x][y] is not None and self._parent[x][y].color != self._color:
+                    break
+                x += direction[0]
+                y += direction[1]
+
+        return options
+
 
 class Rook(Piece):
     def __init__(self, parent, x, y, color):
@@ -53,42 +71,4 @@ class Rook(Piece):
         self._y = y
 
     def get_move_options(self):
-        options = []
-
-        # N movement options
-        x = self._x - 1
-        y = self._y
-        while self._parent.validate_move(x, y) and (self._parent[x][y] is None or self._parent[x][y].color != self._color):
-            options.append((x, y))
-            if self._parent[x][y] is not None and self._parent[x][y].color != self._color:
-                break
-            x -= 1
-
-        # S movement options
-        x = self._x + 1
-        y = self._y
-        while self._parent.validate_move(x, y) and (self._parent[x][y] is None or self._parent[x][y].color != self._color):
-            options.append((x, y))
-            if self._parent[x][y] is not None and self._parent[x][y].color != self._color:
-                break
-            x += 1
-
-        # W movement options
-        x = self._x
-        y = self._y - 1
-        while self._parent.validate_move(x, y) and (self._parent[x][y] is None or self._parent[x][y].color != self._color):
-            options.append((x, y))
-            if self._parent[x][y] is not None and self._parent[x][y].color != self._color:
-                break
-            y -= 1
-
-        # E movement options
-        x = self._x
-        y = self._y + 1
-        while self._parent.validate_move(x, y) and (self._parent[x][y] is None or self._parent[x][y].color != self._color):
-            options.append((x, y))
-            if self._parent[x][y] is not None and self._parent[x][y].color != self._color:
-                break
-            y += 1
-
-        return options
+        return RookTypeMovement(self._parent, self._x, self._y, self._color).get_move_options()
