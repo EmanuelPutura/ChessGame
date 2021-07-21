@@ -1,5 +1,6 @@
 from chess_pieces.piece import Piece
 from errors.exceptions import InvalidMoveError
+from tools.constants import PieceColor
 
 
 class King(Piece):
@@ -14,6 +15,30 @@ class King(Piece):
             return False
         if abs(self._x - x) > 1 or abs(self._y - y) > 1:
             return False
+
+        # now check for the case when the king enters a position where it could be captured
+
+        # case1: check for 'pawn type' moves
+        pawn_attacking_spots = []
+        if self._color == PieceColor.WHITE:
+            pawn_attacking_spots = [(-1, -1), (-1, 1)]
+        elif self._color == PieceColor.BLACK:
+            pawn_attacking_spots = [(1, -1), (1, 1)]
+
+        for move in pawn_attacking_spots:
+            if self._parent[x + move[0]][y + move[1]] is not None and self._parent[x + move[0]][y + move[1]].__class__.__name__ == "Pawn" and \
+                    self._parent[x + move[0]][y + move[1]].color != self._color:
+                return False
+
+        # corresponding directions: NW, NE, SW, SE, N, S, W, E
+        direction_options = [(-1, -1), (-1, 1), (1, -1), (1, 1), (-1, 0), (1, 0), (0, -1), (0, 1)]
+        for direction in direction_options:
+            enemy_x = x + direction[0]
+            enemy_y = y + direction[1]
+            if self._parent.validate_move(enemy_x, enemy_y) and self._parent[enemy_x][enemy_y] is not None and \
+                    (enemy_x != self._x or enemy_y != self._y) and self._parent[enemy_x][enemy_y].__class__.__name__ == "King":
+                return False
+
         return True
 
     def move(self, x, y):
@@ -25,44 +50,13 @@ class King(Piece):
     def get_move_options(self):
         options = []
 
-        # N-W movement direction
-        if self._parent.validate_move(self._x - 1, self._y - 1) and (self._parent[self._x - 1][self._y - 1] is None or
-                         self._parent[self._x - 1][self._y - 1].color != self._color):
-            options.append((self._x - 1, self._y - 1))
+        # corresponding directions: NW, NE, SW, SE, N, S, W, E
+        direction_options = [(-1, -1), (-1, 1), (1, -1), (1, 1), (-1, 0), (1, 0), (0, -1), (0, 1)]
 
-        # N-E movement direction
-        if self._parent.validate_move(self._x - 1, self._y + 1) and (self._parent[self._x - 1][self._y + 1] is None or
-                         self._parent[self._x - 1][self._y + 1].color != self._color):
-            options.append((self._x - 1, self._y + 1))
-
-        # S-W movement direction
-        if self._parent.validate_move(self._x + 1, self._y - 1) and (self._parent[self._x + 1][self._y - 1] is None or
-                         self._parent[self._x + 1][self._y - 1].color != self._color):
-            options.append((self._x + 1, self._y - 1))
-
-        # S-E movement direction
-        if self._parent.validate_move(self._x + 1, self._y + 1) and (self._parent[self._x + 1][self._y + 1] is None or
-                         self._parent[self._x + 1][self._y + 1].color != self._color):
-            options.append((self._x + 1, self._y + 1))
-
-        # N movement direction
-        if self._parent.validate_move(self._x - 1, self._y) and (self._parent[self._x - 1][self._y] is None or
-                         self._parent[self._x - 1][self._y].color != self._color):
-            options.append((self._x - 1, self._y))
-
-        # S movement direction
-        if self._parent.validate_move(self._x + 1, self._y) and (self._parent[self._x + 1][self._y] is None or
-                         self._parent[self._x + 1][self._y].color != self._color):
-            options.append((self._x + 1, self._y))
-
-        # W movement direction
-        if self._parent.validate_move(self._x, self._y - 1) and (self._parent[self._x][self._y - 1] is None or
-                         self._parent[self._x][self._y - 1].color != self._color):
-            options.append((self._x, self._y - 1))
-
-        # E movement direction
-        if self._parent.validate_move(self._x, self._y + 1) and (self._parent[self._x][self._y + 1] is None or
-                         self._parent[self._x][self._y + 1].color != self._color):
-            options.append((self._x, self._y + 1))
+        for direction in direction_options:
+            x = self._x + direction[0]
+            y = self._y + direction[1]
+            if self.attempt_move(x, y):
+                options.append((x, y))
 
         return options
