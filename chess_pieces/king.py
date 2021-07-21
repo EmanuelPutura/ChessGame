@@ -25,20 +25,44 @@ class King(Piece):
     def get_move_options(self):
         options = []
 
+        # N-W movement direction
+        if self._parent.validate_move(self._x - 1, self._y - 1) and (self._parent[self._x - 1][self._y - 1] is None or
+                         self._parent[self._x - 1][self._y - 1].color != self._color):
+            options.append((self._x - 1, self._y - 1))
+
+        # N-E movement direction
+        if self._parent.validate_move(self._x - 1, self._y + 1) and (self._parent[self._x - 1][self._y + 1] is None or
+                         self._parent[self._x - 1][self._y + 1].color != self._color):
+            options.append((self._x - 1, self._y + 1))
+
+        # S-W movement direction
+        if self._parent.validate_move(self._x + 1, self._y - 1) and (self._parent[self._x + 1][self._y - 1] is None or
+                         self._parent[self._x + 1][self._y - 1].color != self._color):
+            options.append((self._x + 1, self._y - 1))
+
+        # S-E movement direction
+        if self._parent.validate_move(self._x + 1, self._y + 1) and (self._parent[self._x + 1][self._y + 1] is None or
+                         self._parent[self._x + 1][self._y + 1].color != self._color):
+            options.append((self._x + 1, self._y + 1))
+
         # N movement direction
-        if self._parent.validate_move(self._x - 1, self._y) and self._parent[self._x - 1][self._y] is None:
+        if self._parent.validate_move(self._x - 1, self._y) and (self._parent[self._x - 1][self._y] is None or
+                         self._parent[self._x - 1][self._y].color != self._color):
             options.append((self._x - 1, self._y))
 
         # S movement direction
-        if self._parent.validate_move(self._x + 1, self._y) and self._parent[self._x + 1][self._y] is None:
+        if self._parent.validate_move(self._x + 1, self._y) and (self._parent[self._x + 1][self._y] is None or
+                         self._parent[self._x + 1][self._y].color != self._color):
             options.append((self._x + 1, self._y))
 
         # W movement direction
-        if self._parent.validate_move(self._x, self._y - 1) and self._parent[self._x][self._y - 1] is None:
+        if self._parent.validate_move(self._x, self._y - 1) and (self._parent[self._x][self._y - 1] is None or
+                         self._parent[self._x][self._y - 1].color != self._color):
             options.append((self._x, self._y - 1))
 
         # E movement direction
-        if self._parent.validate_move(self._x, self._y + 1) and self._parent[self._x][self._y + 1] is None:
+        if self._parent.validate_move(self._x, self._y + 1) and (self._parent[self._x][self._y + 1] is None or
+                         self._parent[self._x][self._y + 1].color != self._color):
             options.append((self._x, self._y + 1))
 
         return options
