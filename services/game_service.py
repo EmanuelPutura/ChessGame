@@ -87,7 +87,7 @@ class GameService:
         king_color_dictionary = {PieceColor.WHITE: self.__white_king, PieceColor.BLACK: self.__black_king}
         king = king_color_dictionary[moving_color]
 
-        check = self.__check(moving_color)
+        # check = self.__check(moving_color)
 
         if self.__chess_board[source_x][source_y] is None:
             raise InvalidMoveError('InvalidMoveError: No piece at coordinates ({}, {}).'.format(source_x, source_y))
@@ -104,20 +104,20 @@ class GameService:
             piece_color_dictionary = {PieceColor.WHITE: self.__black_pieces, PieceColor.BLACK: self.__white_pieces}
             piece_color_dictionary[moving_color].remove(last_piece)
 
-        if self.__check(moving_color):
-            piece.move(source_x, source_y)
-            self.__chess_board[source_x][source_y] = piece
-            self.__chess_board[destination_x][destination_y] = last_piece
-
-            if last_piece is not None:
-                piece_color_dictionary = {PieceColor.WHITE: self.__black_pieces, PieceColor.BLACK: self.__white_pieces}
-                piece_color_dictionary[moving_color].append(last_piece)
-
-            if check:
-                raise InvalidMoveError('Check! You must move your king!')
-            raise InvalidMoveError('Impossible move: check!')
+        # if self.__check(moving_color):
+        #     piece.move(source_x, source_y)
+        #     self.__chess_board[source_x][source_y] = piece
+        #     self.__chess_board[destination_x][destination_y] = last_piece
+        #
+        #     if last_piece is not None:
+        #         piece_color_dictionary = {PieceColor.WHITE: self.__black_pieces, PieceColor.BLACK: self.__white_pieces}
+        #         piece_color_dictionary[moving_color].append(last_piece)
+        #
+        #     if check:
+        #         raise InvalidMoveError('Check! You must move your king!')
+        #     raise InvalidMoveError('Impossible move: check!')
 
         opposite_color_dictionary = {PieceColor.WHITE: PieceColor.BLACK, PieceColor.BLACK: PieceColor.WHITE}
-        if self.__check(opposite_color_dictionary[moving_color]) and self.__checkmate(opposite_color_dictionary[moving_color]):
-            return True
+        # if self.__check(opposite_color_dictionary[moving_color]) and self.__checkmate(opposite_color_dictionary[moving_color]):
+        #     return True
         return False

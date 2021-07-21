@@ -30,6 +30,7 @@ class Knight(Piece):
         options = []
 
         for move in self.__possible_moves:
-            if self._parent.validate_move(self._x + move[0], self._y + move[1]) and self._parent[self._x + move[0]][self._y + move[1]] is None:
+            if self._parent.validate_move(self._x + move[0], self._y + move[1]) and (self._parent[self._x + move[0]][self._y + move[1]] is None or
+                            self._parent[self._x + move[0]][self._y + move[1]].color != self._color):
                 options.append((self._x + move[0], self._y + move[1]))
         return options
