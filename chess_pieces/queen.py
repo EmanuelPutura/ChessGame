@@ -11,7 +11,7 @@ class Queen(Piece):
     def attempt_move(self, x, y):
         if not self._validate_board_move(x, y):
             return False
-        if self._parent[x][y] is not None and self._parent[x][y].color == self._color:
+        if self._parent[x, y] is not None and self._parent[x, y].color == self._color:
             return False
         rook_type = bishop_type = True
         if abs(self._x - x) != abs(self._y - y):
@@ -28,8 +28,7 @@ class Queen(Piece):
     def move(self, x, y):
         if not self.attempt_move(x, y):
             raise InvalidMoveError('InvalidMoveError: Cannot move to ({}, {}) cell.'.format(x, y))
-        self._x = x
-        self._y = y
+        self._parent[x, y] = self
 
     def get_move_options(self):
         options = DiagonalTypeMovement(self._parent, self._x, self._y, self._color).get_move_options()

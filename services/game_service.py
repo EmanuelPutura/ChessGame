@@ -20,15 +20,15 @@ class GameService:
         pieces = []
         for row in range(8):
             for column in range(8):
-                if self.__chess_board[row][column] is not None and self.__chess_board[row][column].color == color:
-                    pieces.append(self.__chess_board[row][column])
+                if self.__chess_board[row, column] is not None and self.__chess_board[row, column].color == color:
+                    pieces.append(self.__chess_board[row, column])
         return pieces
 
     def __search_king(self, color):
         for row in range(8):
             for column in range(8):
-                if type(self.__chess_board[row][column]) is King and self.__chess_board[row][column].color == color:
-                    return self.__chess_board[row][column]
+                if type(self.__chess_board[row, column]) is King and self.__chess_board[row, column].color == color:
+                    return self.__chess_board[row, column]
         return None
 
     def __check(self, color):
@@ -80,7 +80,7 @@ class GameService:
         return True
 
     def getPiece(self, x, y):
-        return self.__chess_board[x][y]
+        return self.__chess_board[x, y]
 
     def move(self, source_x, source_y, destination_x, destination_y, moving_color):
         # get the current color king
@@ -89,16 +89,19 @@ class GameService:
 
         # check = self.__check(moving_color)
 
-        if self.__chess_board[source_x][source_y] is None:
+        if self.__chess_board[source_x, source_y] is None:
             raise InvalidMoveError('InvalidMoveError: No piece at coordinates ({}, {}).'.format(source_x, source_y))
-        piece = self.__chess_board[source_x][source_y]
+        piece = self.__chess_board[source_x, source_y]
         if piece.color != moving_color:
             raise InvalidMoveError('InvalidMoveError: The selected piece is not yours.')
 
+        # piece.move(destination_x, destination_y)
+        # self.__chess_board[source_x, source_y] = None
+        last_piece = self.__chess_board[destination_x, destination_y]
+        # self.__chess_board[destination_x, destination_y] = piece
+        # self.__chess_board[source_x, source_y] = None
         piece.move(destination_x, destination_y)
-        self.__chess_board[source_x][source_y] = None
-        last_piece = self.__chess_board[destination_x][destination_y]
-        self.__chess_board[destination_x][destination_y] = piece
+        # self.__chess_board[destination_x, destination_y] = piece
 
         if last_piece is not None:
             piece_color_dictionary = {PieceColor.WHITE: self.__black_pieces, PieceColor.BLACK: self.__white_pieces}

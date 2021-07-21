@@ -18,6 +18,14 @@ class Piece:
     def y(self):
         return self._y
 
+    @x.setter
+    def x(self, other):
+        self._x = other
+
+    @y.setter
+    def y(self, other):
+        self._y = other
+
     @property
     def color(self):
         return self._color

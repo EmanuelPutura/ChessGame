@@ -1,4 +1,4 @@
-from errors.exceptions import UserInputError, InvalidMoveError
+from errors.exceptions import UserInputError, InvalidMoveError, InvalidPieceError
 from tools.constants import PieceColor
 
 
@@ -79,5 +79,7 @@ class ConsoleUI:
                 print(str(userInputError) + '\n')
             except InvalidMoveError as invalidMoveError:
                 print(str(invalidMoveError) + '\n')
+            except InvalidPieceError as invalidPieceError:
+                print(str(invalidPieceError) + '\n')
             except Exception as exception:
                 print('Unexpected exception occured: ' + str(exception) + '\n')

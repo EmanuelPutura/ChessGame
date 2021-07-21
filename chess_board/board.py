@@ -6,12 +6,13 @@ from chess_pieces.knight import Knight
 from chess_pieces.pawn import Pawn
 from chess_pieces.queen import Queen
 from chess_pieces.rook import Rook
+from errors.exceptions import InvalidPieceError
 from tools.constants import PieceColor
 
 
 class ChessBoard:
     def __init__(self):
-        self.__board = self.__create_board()
+        self.__board = self.__create_board()  # sparse matrix representation
 
     def validate_move(self, x, y):
         if x < 0 or y < 0 or x > 7 or y > 7:
@@ -19,37 +20,33 @@ class ChessBoard:
         return True
 
     def __create_board(self):
-        """
-            black/white rook   - code 0/10
-            black/white knight - code 1/11
-            black/white bishop - code 2/12
-            black/white queen  - code 3/13
-            black/white king   - code 4/14
-            black/white pawn   - code 5/15
-            no piece           - None
-        """
+        board = {}
 
-        white_pieces = [[0, 1, 2, 3, 4, 2, 1, 0],
-                        [5, 5, 5, 5, 5, 5, 5, 5]]
-        empty_cells = [[None for column in range(8)] for row in range(4)]
-        black_pieces = [[15, 15, 15, 15, 15, 15, 15, 15],
-                        [10, 11, 12, 13, 14, 12, 11, 10]]
-        board = white_pieces + empty_cells + black_pieces
-
-        pieces_dictionary = {0: Rook, 1: Knight, 2: Bishop, 3: Queen, 4: King, 5: Pawn,
-                             10: Rook, 11: Knight, 12: Bishop, 13: Queen, 14: King, 15: Pawn}
-        # black pieces
+        pieces = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook]
         for row in range(2):
             for column in range(8):
-                board[row][column] = pieces_dictionary[board[row][column]](self, row, column, PieceColor.BLACK)
-        # white pieces
+                current_piece = Pawn(self, row, column, PieceColor.BLACK) if row == 1 else pieces[column](self, row, column, PieceColor.BLACK)
+                board[(row, column)] = current_piece
+
         for row in range(6, 8):
             for column in range(8):
-                board[row][column] = pieces_dictionary[board[row][column]](self, row, column, PieceColor.WHITE)
+                current_piece = Pawn(self, row, column, PieceColor.WHITE) if row == 6 else pieces[column](self, row, column, PieceColor.WHITE)
+                board[(row, column)] = current_piece
         return board
 
     def __getitem__(self, key):
-        return self.__board[key]
+        return None if key not in self.__board else self.__board[key]
+
+    def __setitem__(self, key, piece):
+        if piece is not None and type(piece) not in [Rook, Knight, Bishop, Queen, King, Pawn]:
+            raise InvalidPieceError("'{}' is not a valid chess piece.".format(piece))
+        if piece is None and key in self.__board:
+            del self.__board[key]
+        elif piece is not None:
+            del self.__board[piece.x, piece.y]
+            piece._x = key[0]
+            piece._y = key[1]
+            self.__board[key] = piece
 
     def __str__(self):
         """
@@ -70,11 +67,11 @@ class ChessBoard:
         for row in range(8):
             row_data = [str(row)]
             for column in range(8):
-                if self.__board[row][column] is None:
+                if self[row, column] is None:
                     row_data.append('')
-                elif self.__board[row][column].color == PieceColor.BLACK:
-                    row_data.append(black_pieces_dictionary[type(self.__board[row][column])])
-                elif self.__board[row][column].color == PieceColor.WHITE:
-                    row_data.append(white_pieces_dictionary[type(self.__board[row][column])])
+                elif self[row, column].color == PieceColor.BLACK:
+                    row_data.append(black_pieces_dictionary[type(self[row, column])])
+                elif self[row, column].color == PieceColor.WHITE:
+                    row_data.append(white_pieces_dictionary[type(self[row, column])])
             representation.add_row(row_data)
         return representation.draw()

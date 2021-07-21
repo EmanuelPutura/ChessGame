@@ -10,7 +10,7 @@ class King(Piece):
     def attempt_move(self, x, y):
         if not self._validate_board_move(x, y):
             return False
-        if self._parent[x][y] is not None and self._parent[x][y].color == self._color:
+        if self._parent[x, y] is not None and self._parent[x, y].color == self._color:
             return False
         if abs(self._x - x) > 1 or abs(self._y - y) > 1:
             return False
@@ -39,12 +39,12 @@ class King(Piece):
             enemy_y = y + direction[1]
 
             if loop_index > 17:
-                while self._parent.validate_move(enemy_x, enemy_y) and self._parent[enemy_x][enemy_y] is None:
+                while self._parent.validate_move(enemy_x, enemy_y) and self._parent[enemy_x, enemy_y] is None:
                     enemy_x += direction[0]
                     enemy_y += direction[1]
 
-            if self._parent.validate_move(enemy_x, enemy_y) and self._parent[enemy_x][enemy_y] is not None and \
-                    self._parent[enemy_x][enemy_y].__class__.__name__ in pieces_to_be_checked[limit_index] and self._parent[enemy_x][enemy_y].color != self._color:
+            if self._parent.validate_move(enemy_x, enemy_y) and self._parent[enemy_x, enemy_y] is not None and \
+                    self._parent[enemy_x, enemy_y].__class__.__name__ in pieces_to_be_checked[limit_index] and self._parent[enemy_x, enemy_y].color != self._color:
                 return False
             loop_index += 1
 
@@ -53,8 +53,7 @@ class King(Piece):
     def move(self, x, y):
         if not self.attempt_move(x, y):
             raise InvalidMoveError('InvalidMoveError: Cannot move to ({}, {}) cell.'.format(x, y))
-        self._x = x
-        self._y = y
+        self._parent[x, y] = self
 
     def get_move_options(self):
         options = []

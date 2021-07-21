@@ -8,3 +8,7 @@ class InvalidMoveError(Exception):
 
 class IsCheckError(InvalidMoveError):
     pass
+
+
+class InvalidPieceError(Exception):
+    pass
