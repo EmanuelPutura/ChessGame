@@ -14,6 +14,10 @@ class ChessBoard:
     def __init__(self):
         self.__board = self.__create_board()  # sparse matrix representation
 
+    @property
+    def occupied_cells(self):
+        return list(self.__board)
+
     def validate_move(self, x, y):
         if x < 0 or y < 0 or x > 7 or y > 7:
             return False

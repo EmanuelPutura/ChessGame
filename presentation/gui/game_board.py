@@ -72,10 +72,10 @@ class GameBoard(pygame.sprite.Sprite):
         # match color to dictionary
         colors_dictionary = {PieceColor.WHITE: white_pieces, PieceColor.BLACK: black_pieces}
 
-        for row in range(self.__dimension):
-            for column in range(self.__dimension):
-                if self.__board[row, column] is not None:
-                    piece = self.__board[row, column]
-                    piece_colour, piece_name = piece.name.split()[0], piece.name.split()[1]
-                    self.__draw_piece(colors_dictionary[piece.color][piece_name], (Dimensions.MARGIN.value + column * self.__cell_dimension,
-                                      Dimensions.MARGIN.value + row * self.__cell_dimension), self.__cell_dimension)
+        for occupied_cell in self.__board.occupied_cells:
+            row = occupied_cell[0]
+            column = occupied_cell[1]
+            piece = self.__board[row, column]
+            piece_colour, piece_name = piece.name.split()[0], piece.name.split()[1]
+            self.__draw_piece(colors_dictionary[piece.color][piece_name], (Dimensions.MARGIN.value + column * self.__cell_dimension,
+                              Dimensions.MARGIN.value + row * self.__cell_dimension), self.__cell_dimension)
