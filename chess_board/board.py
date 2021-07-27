@@ -13,10 +13,31 @@ from tools.constants import PieceColor
 class ChessBoard:
     def __init__(self):
         self.__board = self.__create_board()  # sparse matrix representation
+        self.__white_king = self[7, 4]
+        self.__black_king = self[0, 4]
 
     @property
     def occupied_cells(self):
         return list(self.__board)
+
+    @property
+    def whites(self):
+        return self.getPieceOfColor(PieceColor.WHITE)
+
+    @property
+    def blacks(self):
+        return self.getPieceOfColor(PieceColor.BLACK)
+
+    def getPieceOfColor(self, color):
+        returned_pieces = []
+        for direction in self.__board:
+            if self.__board[direction].color == color:
+                returned_pieces.append(self.__board[direction])
+        return returned_pieces
+
+    def get_king(self, color):
+        kings = {PieceColor.WHITE: self.__white_king, PieceColor.BLACK: self.__black_king}
+        return kings[color] if color in kings else None
 
     def validate_move(self, x, y):
         if x < 0 or y < 0 or x > 7 or y > 7:
@@ -47,9 +68,10 @@ class ChessBoard:
         if piece is None and key in self.__board:
             del self.__board[key]
         elif piece is not None:
-            del self.__board[piece.x, piece.y]
-            piece._x = key[0]
-            piece._y = key[1]
+            if (piece.x, piece.y) in self.__board:
+                del self.__board[piece.x, piece.y]
+            piece.x = key[0]
+            piece.y = key[1]
             self.__board[key] = piece
 
     def __str__(self):

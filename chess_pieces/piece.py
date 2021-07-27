@@ -45,9 +45,66 @@ class Piece:
     def move(self, *args):
         pass
 
-    @abstractmethod
-    def get_move_options(self):
-        pass
+    def get_move_options(self, base_call=True):
+        king = self._parent.get_king(self._color)
+        return not king.check_safe(king.x, king.y)
+
+    def try_check_defense(self):
+        king = self._parent.get_king(self._color)
+        dangerous_pieces = king.get_dangerous_pieces(king.x, king.y)
+
+        options = []
+        if king.check_safe(king.x, king.y):
+            return options
+
+        # first check if there is a dangerous knight or/and a dangerous pawn, which cannot be blocked by some other piece (they can only be captured)
+        must_move_piece = None
+        for piece in dangerous_pieces:
+            if piece in ["Knight", "Pawn"]:
+                piece = dangerous_pieces[piece][0]
+                if (piece.x, piece.y) not in self.get_move_options(False):
+                    return options  # then no possible option
+                if must_move_piece is not None:
+                    return options
+                must_move_piece = piece
+
+        if must_move_piece is not None:
+            last_coordinates = (self._x, self._y)
+            self._parent[must_move_piece.x, must_move_piece.y] = self
+
+            ret_value = options
+            if king.check_safe(king.x, king.y):
+                ret_value = [(must_move_piece.x, must_move_piece.y)]
+
+            self._parent[last_coordinates] = self
+            self._parent[must_move_piece.x, must_move_piece.y] = must_move_piece
+            return ret_value
+
+        if self == king:
+            for move in self.get_move_options(False):
+                # simulate the move and check if the check danger would go away or not
+                if king.check_safe(move[0], move[1]):
+                    options.append(move)
+            return options
+
+        for piece in dangerous_pieces:
+            direction = dangerous_pieces[piece][1]        # the direction from where the piece attacks
+            dangerous_piece = dangerous_pieces[piece][0]  # the piece that produces the danger
+
+            x = king.x + direction[0]
+            y = king.y + direction[1]
+
+            while True:
+                if self._parent[x, y] is None:
+                    if self.attempt_move(x, y):
+                        options.append((x, y))
+                elif self._parent[x, y] == dangerous_piece:
+                    if self.attempt_move(x, y):
+                        options.append((x, y))
+                    break
+                x = x + direction[0]
+                y = y + direction[1]
+        return options
 
     def __eq__(self, other):
         return self._x == other.x and self._y == other.y and self._color == other.color

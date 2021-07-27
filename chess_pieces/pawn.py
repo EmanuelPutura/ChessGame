@@ -41,7 +41,9 @@ class Pawn(Piece):
         self._parent[x, y] = self
         self.__made_move = True
 
-    def get_move_options(self):
+    def get_move_options(self, base_call=True):
+        if base_call and super().get_move_options():
+            return self.try_check_defense()
         options = []
 
         # normal moves

@@ -25,7 +25,9 @@ class Knight(Piece):
             raise InvalidMoveError('InvalidMoveError: Cannot move to ({}, {}) cell.'.format(x, y))
         self._parent[x, y] = self
 
-    def get_move_options(self):
+    def get_move_options(self, base_call=True):
+        if base_call and super().get_move_options():
+            return self.try_check_defense()
         options = []
 
         for move in self.__possible_moves:

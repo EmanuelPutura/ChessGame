@@ -14,19 +14,26 @@ class King(Piece):
             return False
         if abs(self._x - x) > 1 or abs(self._y - y) > 1:
             return False
-        return self.__checkMoveForCaptureDanger(x, y)  # now check for the case when the king enters a position where it could be captured
+        return self.check_safe(x, y)  # now check for the case when the king enters a position where it could be captured
 
-    def __checkMoveForCaptureDanger(self, x, y):
+    def check_safe(self, x, y):
+        return True if self.get_dangerous_pieces(x, y) == {} else False
+
+    def get_dangerous_pieces(self, x, y):
+        dangerous_pieces = {}
         directions = []
+
         if self._color == PieceColor.WHITE:
             directions = [(-1, -1), (-1, 1)]
         elif self._color == PieceColor.BLACK:
             directions = [(1, -1), (1, 1)]
 
         # in order of the direction: NW, NE, SW, SE, N, S, W, E and then the knight directions
-        directions += [(-1, -1), (-1, 1), (1, -1), (1, 1), (-1, 0), (1, 0), (0, -1), (0, 1), (-1, -2), (-2, -1), (-2, 1), (-1, 2), (1, 2), (2, 1), (2, -1), (1, -2)]
+        directions += [(-1, -1), (-1, 1), (1, -1), (1, 1), (-1, 0), (1, 0), (0, -1), (0, 1), (-1, -2), (-2, -1),
+                       (-2, 1), (-1, 2), (1, 2), (2, 1), (2, -1), (1, -2)]
         pieces_to_be_checked = [["Pawn"], ["King"], ["Knight"], ["Bishop", "Queen"], ["Rook", "Queen"]]
-        directions_limit = [2, 10, len(directions) - 1, len(directions) + 3]  # at index 2 change to 'king type' and at index 10 change to 'knight type' movement
+        directions_limit = [2, 10, len(directions) - 1, len(
+            directions) + 3]  # at index 2 change to 'king type' and at index 10 change to 'knight type' movement
 
         loop_index = 0
         limit_index = 0  # index in directions_limit and pieces_to_be_checked lists
@@ -42,20 +49,21 @@ class King(Piece):
                 while self._parent.validate_move(enemy_x, enemy_y) and self._parent[enemy_x, enemy_y] is None:
                     enemy_x += direction[0]
                     enemy_y += direction[1]
-
             if self._parent.validate_move(enemy_x, enemy_y) and self._parent[enemy_x, enemy_y] is not None and \
-                    self._parent[enemy_x, enemy_y].__class__.__name__ in pieces_to_be_checked[limit_index] and self._parent[enemy_x, enemy_y].color != self._color:
-                return False
+                    self._parent[enemy_x, enemy_y].__class__.__name__ in pieces_to_be_checked[limit_index] and \
+                    self._parent[enemy_x, enemy_y].color != self._color:
+                dangerous_pieces[self._parent[enemy_x, enemy_y].__class__.__name__] = (self._parent[enemy_x, enemy_y], direction)
             loop_index += 1
-
-        return True
+        return dangerous_pieces
 
     def move(self, x, y):
         if not self.attempt_move(x, y):
             raise InvalidMoveError('InvalidMoveError: Cannot move to ({}, {}) cell.'.format(x, y))
         self._parent[x, y] = self
 
-    def get_move_options(self):
+    def get_move_options(self, base_call=True):
+        if base_call and super().get_move_options():
+            return self.try_check_defense()
         options = []
 
         # corresponding directions: NW, NE, SW, SE, N, S, W, E
