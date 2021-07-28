@@ -11,8 +11,8 @@ from tests.test_piece_moving import TestPieceMoving
 if __name__ == "__main__":
     TestPieceMoving().test_all()
 
-    # game_service = GameService()
-    # gui = MainWindow(game_service)
-    # gui.run()
+    game_service = GameService()
+    gui = MainWindow(game_service)
+    gui.run()
     # consoleUI = ConsoleUI(game_service)
     # consoleUI.run()

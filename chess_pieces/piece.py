@@ -62,6 +62,10 @@ class Piece:
                     options.append(move)
             return options
 
+        # the only way to escape from a double check is to move the king
+        if len(dangerous_pieces) == 2:
+            return options
+
         if king.check_safe(king.x, king.y):
             return options
 

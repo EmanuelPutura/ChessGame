@@ -263,8 +263,45 @@ class TestPieceMoving(unittest.TestCase):
                 if not piece.x == 5 or not piece.y == 2:
                     assert False
 
-        gui = MainWindow(self.__game_service)
-        gui.run()
+        # double check situation (triple check is not possible)
+        board[3, 3] = None
 
-        # TODO: move the pawn until the end of the table and take a new black piece
-        # TODO: test check cases
+        # move the black rook for initiating the double check situation
+        board[0, 1] = None
+        board[2, 2] = Rook(board, 2, 2, PieceColor.BLACK)
+
+        # move the black bishop, now white king is double checked
+        board[0, 5] = None
+        board[2, 0] = Bishop(board, 2, 0, PieceColor.BLACK)
+
+        # move the white horse, such that it could theoretically capture the black rook. However, the move is not possible because of the double check
+        board[5, 2] = None
+        board[3, 4] = Knight(board, 3, 4, PieceColor.WHITE)
+
+        # note also that the white rook at (1, 1) could block the bishop. However, this is not enough to get rid of the double check
+        # no blocking/capturing is possible. The only escape occurs if the king can move in a safe cell
+        for piece in board.whites:
+            if piece.__class__.__name__ != "King" and piece.get_move_options() != []:
+                assert False
+
+        # move the king such that it could theoretically capture one of the dangerous pieces and also escape check. This should work
+
+        board[2, 0] = None
+        self.__game_service.move(4, 2, 3, 1, PieceColor.WHITE)
+        board[2, 0] = Bishop(board, 2, 0, PieceColor.BLACK)
+
+        board[2, 2] = None
+        board[5, 1] = Rook(board, 5, 1, PieceColor.BLACK)
+
+        # move the white horse
+        board[2, 7] = None
+        board[6, 3] = Knight(board, 6, 3, PieceColor.WHITE)
+
+        # move the white rook
+        board[7, 7] = None
+        board[7, 1] = Rook(board, 7, 1, PieceColor.WHITE)
+
+        # no blocking/capturing from other piece but for the king is possible. The only escape occurs if the king can move in a safe cell
+        for piece in board.whites:
+            if piece.__class__.__name__ != "King" and piece.get_move_options() != []:
+                assert False
