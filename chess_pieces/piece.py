@@ -1,5 +1,6 @@
 from abc import abstractmethod
 
+from errors.exceptions import InvalidMoveError
 from tools.constants import PieceColor
 
 
@@ -42,7 +43,7 @@ class Piece:
         pass
 
     @abstractmethod
-    def move(self, *args):
+    def move(self, x, y):
         pass
 
     def get_move_options(self, base_call=True):
@@ -52,8 +53,15 @@ class Piece:
     def try_check_defense(self):
         king = self._parent.get_king(self._color)
         dangerous_pieces = king.get_dangerous_pieces(king.x, king.y)
-
         options = []
+
+        if self == king:
+            for move in self.get_move_options(False):
+                # simulate the move and check if the check danger would go away or not
+                if king.check_safe(move[0], move[1]):
+                    options.append(move)
+            return options
+
         if king.check_safe(king.x, king.y):
             return options
 
@@ -79,13 +87,6 @@ class Piece:
             self._parent[last_coordinates] = self
             self._parent[must_move_piece.x, must_move_piece.y] = must_move_piece
             return ret_value
-
-        if self == king:
-            for move in self.get_move_options(False):
-                # simulate the move and check if the check danger would go away or not
-                if king.check_safe(move[0], move[1]):
-                    options.append(move)
-            return options
 
         for piece in dangerous_pieces:
             direction = dangerous_pieces[piece][1]        # the direction from where the piece attacks

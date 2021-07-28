@@ -63,6 +63,9 @@ class Bishop(Piece):
     def move(self, x, y):
         if not self.attempt_move(x, y):
             raise InvalidMoveError('InvalidMoveError: Cannot move to ({}, {}) cell.'.format(x, y))
+        if (x, y) not in self.get_move_options():
+            raise InvalidMoveError("InvalidMoveError: Piece '{}' cannot be moved to cell ({}, {}).".format(self.__class__.__name__, x, y))
+
         self._parent[x, y] = self
 
     def get_move_options(self, base_call=True):

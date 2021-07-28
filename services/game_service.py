@@ -61,5 +61,3 @@ class GameService:
         check = self.__check(moving_color)
         # checkmate = self.__check(moving_color) and king.get_move_options() == []
         # print("Check: {}, Checkmate: {}".format(check, checkmate))
-
-        return False

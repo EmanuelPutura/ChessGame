@@ -36,6 +36,9 @@ class Pawn(Piece):
     def move(self, x, y):
         if not self.attempt_move(x, y):
             raise InvalidMoveError('InvalidMoveError: Cannot move to ({}, {}) cell.'.format(x, y))
+        if (x, y) not in self.get_move_options():
+            raise InvalidMoveError("InvalidMoveError: Piece '{}' cannot be moved to cell ({}, {}).".format(self.__class__.__name__, x, y))
+
         if len(self.__normal_moves) == 2:
             self.__normal_moves.pop()
         self._parent[x, y] = self
