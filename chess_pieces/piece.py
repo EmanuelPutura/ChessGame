@@ -72,7 +72,7 @@ class Piece:
         # first check if there is a dangerous knight or/and a dangerous pawn, which cannot be blocked by some other piece (they can only be captured)
         must_move_piece = None
         for piece in dangerous_pieces:
-            if piece in ["Knight", "Pawn"]:
+            if piece[:-2] in ["Knight", "Pawn"]:
                 piece = dangerous_pieces[piece][0]
                 if (piece.x, piece.y) not in self.get_move_options(False):
                     return options  # then no possible option

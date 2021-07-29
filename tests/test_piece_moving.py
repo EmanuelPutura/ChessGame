@@ -19,6 +19,7 @@ class TestPieceMoving(unittest.TestCase):
     def test_all(self):
         self.test_basic_movement()
         self.test_check_situations()
+        self.test_checkmate()
 
     def test_basic_movement(self):
         self.setUp()
@@ -239,11 +240,11 @@ class TestPieceMoving(unittest.TestCase):
         # the moves that the king can do in this situation
         king = board[3, 2]
         king_moves = king.get_move_options()
-        assert(len(king_moves) == 6)
+        assert (len(king_moves) == 4)
 
-        moves = [(2, 2), (3, 3), (4, 3), (4, 2), (4, 1), (3, 1)]
+        moves = [(4, 3), (4, 2), (4, 1), (3, 1)]
         for move in moves:
-            assert(move in king_moves)
+            assert (move in king_moves)
 
         # the white rook (and the other pieces but for the king too) cannot move in this situation (because of the check)
         self.assertRaises(InvalidMoveError, self.__game_service.move, 1, 1, 1, 2, PieceColor.WHITE)
@@ -255,7 +256,7 @@ class TestPieceMoving(unittest.TestCase):
         self.__game_service.move(2, 3, 3, 3, PieceColor.BLACK)
 
         # now the white knight should have only one possible move, capturing the black pawn who produced the check
-        assert(board[5, 2].get_move_options() == [(3, 3)])
+        assert (board[5, 2].get_move_options() == [(3, 3)])
 
         # all the other pieces (but for the white knight and the king) should not be able to move
         for piece in self.__game_service.board.whites:
@@ -305,3 +306,52 @@ class TestPieceMoving(unittest.TestCase):
         for piece in board.whites:
             if piece.__class__.__name__ != "King" and piece.get_move_options() != []:
                 assert False
+
+    def test_checkmate(self):
+        board = self.__game_service.board
+        # move the white king and check the fact that the game can go on
+        assert (not self.__game_service.move(3, 1, 3, 0, PieceColor.WHITE))
+
+        # move the black bishop
+        assert (not self.__game_service.move(2, 0, 6, 4, PieceColor.BLACK))
+
+        # move a black pawn
+        assert (not self.__game_service.move(4, 3, 5, 3, PieceColor.BLACK))
+
+        # replace the black rooks
+        board[0, 7] = None
+        board[2, 1] = Rook(board, 2, 1, PieceColor.BLACK)
+
+        assert (board[3, 0].get_move_options() == [(4, 0)])
+
+        board[5, 1] = None
+        board[4, 1] = Rook(board, 4, 1, PieceColor.BLACK)
+
+        # check king check
+        assert (board[3, 0].check_safe(3, 0))
+        assert (board[3, 0].get_move_options() == [])
+
+        # move a black knight to check the white king
+        board[0, 2] = None
+        board[4, 2] = Knight(board, 4, 2, PieceColor.BLACK)
+
+        # still, no checkmate situation, because the checking black knight can be captured
+        assert(self.__game_service.checkmate(PieceColor.BLACK) == self.__game_service.checkmate(PieceColor.WHITE) == False)
+
+        # if the white horse moves away from its position, then the black horse checks again, we have a checkmate situation
+        board[6, 3] = None
+        assert(not self.__game_service.move(4, 2, 6, 1, PieceColor.BLACK))
+        assert(not self.__game_service.move(3, 4, 2, 6, PieceColor.WHITE))
+        assert(self.__game_service.move(6, 1, 4, 2, PieceColor.BLACK))
+
+        for piece in board.whites:
+            if piece.get_move_options():
+                assert False
+
+        # now, checkmate is no longer valid
+        board[1, 0] = None
+        board[4, 1] = None
+        board[4, 4] = Rook(board, 4, 4, PieceColor.BLACK)
+        board[4, 2] = None
+        board[2, 2] = Knight(board, 2, 4,PieceColor.BLACK)
+        assert(not self.__game_service.checkmate(PieceColor.WHITE))
