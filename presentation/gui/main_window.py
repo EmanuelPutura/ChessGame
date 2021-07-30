@@ -9,7 +9,7 @@ from presentation.gui.constants import Colors, Dimensions
 from presentation.gui.game_board import GameBoard
 from presentation.gui.gradient_generator import GradientGenerator
 from presentation.gui.widgets import Label, ImageButton, TextBox, CreateAccountTextButton, BackImageButton, \
-    LoginImageButton, ExitImageButton, PlayAsGuestImageButton
+    LoginImageButton, ExitImageButton, PlayAsGuestImageButton, WinnerImageButton
 from tools.constants import PieceColor
 
 
@@ -28,7 +28,10 @@ class MainWindow:
         self.__draw_margin()
         self.__game_board = GameBoard(self.__game_service.board, self.__window)
         self.__widgets_group = pygame.sprite.Group()
+
         self.__turn_label = None
+        self.__winner_button = None
+
         self.init_widgets()
 
     @property
@@ -225,12 +228,34 @@ class MainWindow:
         widget_y = widget_y + widget_height + cell_dimension + margin
 
         widget_y = widget_y + widget_height + 150
+
+        # restart_button = BackImageButton()
+        # TODO: restart button
+
         back_button = BackImageButton(self, r'\\assets\back.png', widget_width, widget_height, widget_x, widget_y)
         back_button.add(self.__widgets_group)
 
         widget_y = widget_y + widget_height + 10
         exit_button = ExitImageButton(self, r'\\assets\exit.png', widget_width, widget_height, widget_x, widget_y)
         exit_button.add(self.__widgets_group)
+
+    def __init_winner_button(self):
+        screen_width, screen_height = pygame.display.get_surface().get_size()
+        margin = Dimensions.MARGIN.value
+        cell_dimension = self.__game_board.cell_dimension
+        widget_font = pygame.font.SysFont('Benne', 20)
+
+        widget_x = screen_height + 2.5
+        widget_width = 150
+        widget_height = 110
+
+        get_widget_y = lambda middle, height: middle - height / 2
+        widget_y = get_widget_y(margin + cell_dimension / 2, widget_height) + margin
+
+        winner_mapping = {True: r'\\assets\black_win.png', False: r'\\assets\white_win.png'}
+
+        winner_button = WinnerImageButton(self, winner_mapping[self.__white_turn], widget_width, widget_height, widget_x, widget_y)
+        winner_button.add(self.__widgets_group)
 
     def __draw_piece_move_options(self, piece):
         for move in piece.get_move_options():
@@ -268,16 +293,25 @@ class MainWindow:
                         position = pygame.mouse.get_pos()
                         table_position = self.__game_board.find_board_cell(position[0], position[1])
 
-                        if table_position is not None:
+                        if table_position is not None and self.__turn_label is not None:
                             moving_color = PieceColor.WHITE if self.__white_turn else PieceColor.BLACK
+
                             if self.__current_piece is not None and self.__current_piece.color == moving_color and table_position in self.__current_piece.get_move_options():
                                 # make the move
                                 self.__white_turn = not self.__white_turn
-                                self.__game_service.move(self.__current_piece.x, self.__current_piece.y, table_position[0], table_position[1], moving_color)
+                                if self.__game_service.move(self.__current_piece.x, self.__current_piece.y, table_position[0], table_position[1], moving_color):
+                                    self.__widgets_group.remove(self.__turn_label)
+                                    self.__turn_label = None
+                                    self.__init_winner_button()
+
+                                if self.__turn_label is not None:
+                                    turn_map = {PieceColor.WHITE: 'Current turn: black player', PieceColor.BLACK: 'Current turn: white player'}
+                                    self.__turn_label.text = turn_map[moving_color]
+
                                 self.__current_piece = None
                             else:
                                 self.__current_piece = self.__game_service.getPiece(table_position[0], table_position[1])
-                            if self.__current_piece is not None and self.__current_piece.color == moving_color:
+                            if self.__current_piece is not None and self.__current_piece.color == moving_color and self.__turn_label is not None:
                                 draw_options = True
                                 self.__draw_piece_move_options(self.__current_piece)
                             else:

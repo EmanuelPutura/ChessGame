@@ -118,6 +118,14 @@ class PlayAsGuestImageButton(ImageButton):
         return True
 
 
+class WinnerImageButton(ImageButton):
+    def __init__(self, parent, file_name, width, height, x=0, y=0):
+        super().__init__(parent, file_name, width, height, x, y)
+
+    def update(self, event):
+        return True
+
+
 class Label(pygame.sprite.Sprite):
     def __init__(self, parent, text, font, width, height, x=0, y=0, text_color=Colors.WHITE.value):
         super().__init__()
@@ -127,6 +135,7 @@ class Label(pygame.sprite.Sprite):
         self.__font = font
         self.__width = width
         self.__height = height
+        self.__color = text_color
         self.change_text(text, font, text_color)
 
     @property
@@ -136,6 +145,10 @@ class Label(pygame.sprite.Sprite):
     @property
     def text(self):
         return self.__text
+
+    @text.setter
+    def text(self, other):
+        self.change_text(other, self.__font, self.__color)
 
     @property
     def font(self):
