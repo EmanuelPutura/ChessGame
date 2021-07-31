@@ -218,9 +218,13 @@ class MainWindow:
         widget_x -= 5
         widget_y = widget_y + widget_height + 10
 
-        self.__turn_label = Label(self, 'Current turn: white player', widget_font, widget_width, widget_height, Dimensions.MARGIN.value,
+        if self.__winner_button is None:
+            turn_map = {False: 'Current turn: black player', True: 'Current turn: white player'}
+            self.__turn_label = Label(self, turn_map[self.__white_turn], widget_font, widget_width, widget_height, Dimensions.MARGIN.value,
                                 Dimensions.MARGIN.value - 20, Colors.WHITE.value)
-        self.__turn_label.add(self.__widgets_group)
+            self.__turn_label.add(self.__widgets_group)
+        else:
+            self.__init_winner_button()
 
         widget_x = screen_height
         widget_width = screen_width - screen_height - margin
@@ -243,7 +247,6 @@ class MainWindow:
         screen_width, screen_height = pygame.display.get_surface().get_size()
         margin = Dimensions.MARGIN.value
         cell_dimension = self.__game_board.cell_dimension
-        widget_font = pygame.font.SysFont('Benne', 20)
 
         widget_x = screen_height + 2.5
         widget_width = 150
@@ -254,8 +257,8 @@ class MainWindow:
 
         winner_mapping = {True: r'\\assets\black_win.png', False: r'\\assets\white_win.png'}
 
-        winner_button = WinnerImageButton(self, winner_mapping[self.__white_turn], widget_width, widget_height, widget_x, widget_y)
-        winner_button.add(self.__widgets_group)
+        self.__winner_button = WinnerImageButton(self, winner_mapping[self.__white_turn], widget_width, widget_height, widget_x, widget_y)
+        self.__winner_button.add(self.__widgets_group)
 
     def __draw_piece_move_options(self, piece):
         for move in piece.get_move_options():

@@ -25,7 +25,6 @@
     <list default="true" id="f9fb620e-864a-4645-860d-d447c81affbf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/presentation/gui/main_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/presentation/gui/main_window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/presentation/gui/widgets.py" beforeDir="false" afterPath="$PROJECT_DIR$/presentation/gui/widgets.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -208,6 +207,7 @@
       <workItem from="1627570185638" duration="5085000" />
       <workItem from="1627576761849" duration="1599000" />
       <workItem from="1627669954716" duration="4052000" />
+      <workItem from="1627720778909" duration="390000" />
     </task>
     <servers />
   </component>
@@ -231,22 +231,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="154" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1626868877675" />
-    <state width="1493" height="145" key="GridCell.Tab.0.bottom" timestamp="1627675496955">
+    <state width="1493" height="144" key="GridCell.Tab.0.bottom" timestamp="1627721123729">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="145" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1627675496955" />
-    <state width="1493" height="145" key="GridCell.Tab.0.center" timestamp="1627675496955">
+    <state width="1493" height="144" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1627721123729" />
+    <state width="1493" height="144" key="GridCell.Tab.0.center" timestamp="1627721123729">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="145" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1627675496955" />
-    <state width="1493" height="145" key="GridCell.Tab.0.left" timestamp="1627675496955">
+    <state width="1493" height="144" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1627721123729" />
+    <state width="1493" height="144" key="GridCell.Tab.0.left" timestamp="1627721123729">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="145" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1627675496955" />
-    <state width="1493" height="145" key="GridCell.Tab.0.right" timestamp="1627675496955">
+    <state width="1493" height="144" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1627721123729" />
+    <state width="1493" height="144" key="GridCell.Tab.0.right" timestamp="1627721123729">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="145" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1627675496955" />
+    <state width="1493" height="144" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1627721123729" />
     <state width="1493" height="145" key="GridCell.Tab.1.bottom" timestamp="1627675496955">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -284,7 +284,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ChessGame$Unittests_in_tests.coverage" NAME="Unittests in tests Coverage Results" MODIFIED="1614193618928" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/ChessGame$main.coverage" NAME="main Coverage Results" MODIFIED="1627675391675" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ChessGame$main.coverage" NAME="main Coverage Results" MODIFIED="1627721123728" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ChessGame$board.coverage" NAME="board Coverage Results" MODIFIED="1613584024998" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/chess_board" />
     <SUITE FILE_PATH="coverage/ChessGame$Unittests_for_test_piece_moving_TestPieceMoving_test_basic_movement.coverage" NAME="Unittests for test_piece_moving.TestPieceMoving.test_basic_movement Coverage Results" MODIFIED="1613598202626" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/ChessGame$game_service.coverage" NAME="game_service Coverage Results" MODIFIED="1613589505628" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/services" />
