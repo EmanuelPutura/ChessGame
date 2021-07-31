@@ -8,6 +8,7 @@ from errors.exceptions import UserInputError
 from presentation.gui.constants import Colors, Dimensions
 from presentation.gui.game_board import GameBoard
 from presentation.gui.gradient_generator import GradientGenerator
+from presentation.gui.piece_choice_window import PieceChoiceWindow
 from presentation.gui.widgets import Label, ImageButton, TextBox, CreateAccountTextButton, BackImageButton, \
     LoginImageButton, ExitImageButton, PlayAsGuestImageButton, DefaultImageButton, RestartImageButton
 from tools.constants import PieceColor
@@ -290,6 +291,9 @@ class MainWindow:
             pygame.draw.line(self.__window, Colors.BLACK1.value, start, end, 4)
 
     def restart_game(self):
+        # TODO: change this. Experimental use only
+        pcw = PieceChoiceWindow(PieceColor.WHITE)
+
         self.__white_turn = True
         self.__current_piece = None
         self.__game_service.board.reinit()
