@@ -9,7 +9,7 @@ from presentation.gui.constants import Colors, Dimensions
 from presentation.gui.game_board import GameBoard
 from presentation.gui.gradient_generator import GradientGenerator
 from presentation.gui.widgets import Label, ImageButton, TextBox, CreateAccountTextButton, BackImageButton, \
-    LoginImageButton, ExitImageButton, PlayAsGuestImageButton, WinnerImageButton
+    LoginImageButton, ExitImageButton, PlayAsGuestImageButton, DefaultImageButton, RestartImageButton
 from tools.constants import PieceColor
 
 
@@ -219,10 +219,7 @@ class MainWindow:
         widget_y = widget_y + widget_height + 10
 
         if self.__winner_button is None:
-            turn_map = {False: 'Current turn: black player', True: 'Current turn: white player'}
-            self.__turn_label = Label(self, turn_map[self.__white_turn], widget_font, widget_width, widget_height, Dimensions.MARGIN.value,
-                                Dimensions.MARGIN.value - 20, Colors.WHITE.value)
-            self.__turn_label.add(self.__widgets_group)
+            self.__init_turn_label()
         else:
             self.__init_winner_button()
 
@@ -233,15 +230,27 @@ class MainWindow:
 
         widget_y = widget_y + widget_height + 150
 
-        # restart_button = BackImageButton()
-        # TODO: restart button
+        widget_y = widget_y - widget_height - 10
+        restart_button = RestartImageButton(self, r'\\assets\restart.png', widget_width, widget_height, widget_x, widget_y)
+        restart_button.add(self.__widgets_group)
 
+        widget_y = widget_y + widget_height + 10
         back_button = BackImageButton(self, r'\\assets\back.png', widget_width, widget_height, widget_x, widget_y)
         back_button.add(self.__widgets_group)
 
         widget_y = widget_y + widget_height + 10
         exit_button = ExitImageButton(self, r'\\assets\exit.png', widget_width, widget_height, widget_x, widget_y)
         exit_button.add(self.__widgets_group)
+
+    def __init_turn_label(self):
+        widget_font = pygame.font.SysFont('Benne', 20)
+        widget_width = 110
+        widget_height = 110
+        turn_map = {False: 'Current turn: black player', True: 'Current turn: white player'}
+
+        self.__turn_label = Label(self, turn_map[self.__white_turn], widget_font, widget_width, widget_height,
+                                  Dimensions.MARGIN.value, Dimensions.MARGIN.value - 20, Colors.WHITE.value)
+        self.__turn_label.add(self.__widgets_group)
 
     def __init_winner_button(self):
         screen_width, screen_height = pygame.display.get_surface().get_size()
@@ -257,7 +266,7 @@ class MainWindow:
 
         winner_mapping = {True: r'\\assets\black_win.png', False: r'\\assets\white_win.png'}
 
-        self.__winner_button = WinnerImageButton(self, winner_mapping[self.__white_turn], widget_width, widget_height, widget_x, widget_y)
+        self.__winner_button = DefaultImageButton(self, winner_mapping[self.__white_turn], widget_width, widget_height, widget_x, widget_y)
         self.__winner_button.add(self.__widgets_group)
 
     def __draw_piece_move_options(self, piece):
@@ -280,6 +289,19 @@ class MainWindow:
             end = line_dictionary[index][1]
             pygame.draw.line(self.__window, Colors.BLACK1.value, start, end, 4)
 
+    def restart_game(self):
+        self.__white_turn = True
+        self.__current_piece = None
+        self.__game_service.board.reinit()
+        self.__game_board = GameBoard(self.__game_service.board, self.__window)
+        if self.__winner_button is not None:
+            self.__widgets_group.remove(self.__winner_button)
+            self.__winner_button = None
+            self.__init_turn_label()
+        if self.__turn_label is not None:
+            turn_map = {False: 'Current turn: black player', True: 'Current turn: white player'}
+            self.__turn_label.text = turn_map[self.__white_turn]
+
     def run(self):
         draw_options = False
         running = True
@@ -289,6 +311,8 @@ class MainWindow:
 
                     for widget in self.__widgets_group:
                         running = widget.update(event)
+                        if not running:
+                            break
 
                     if event.type == pygame.QUIT:
                         running = False

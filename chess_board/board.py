@@ -16,6 +16,9 @@ class ChessBoard:
         self.__white_king = self[7, 4]
         self.__black_king = self[0, 4]
 
+    def reinit(self):
+        self.__init__()
+
     @property
     def occupied_cells(self):
         return list(self.__board)

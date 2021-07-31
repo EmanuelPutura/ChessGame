@@ -56,7 +56,7 @@ class ImageButton(pygame.sprite.Sprite):
         return self.__rectangle
 
     def update(self, event):
-        pass
+        return True
 
     def draw(self, surface):
         relative_path = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
@@ -118,11 +118,23 @@ class PlayAsGuestImageButton(ImageButton):
         return True
 
 
-class WinnerImageButton(ImageButton):
+class DefaultImageButton(ImageButton):
     def __init__(self, parent, file_name, width, height, x=0, y=0):
         super().__init__(parent, file_name, width, height, x, y)
 
     def update(self, event):
+        return True
+
+
+class RestartImageButton(ImageButton):
+    def __init__(self, parent, file_name, width, height, x=0, y=0):
+        super().__init__(parent, file_name, width, height, x, y)
+
+    def update(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            # If the user clicked on the image rectangle
+            if self.rectangle.collidepoint(event.pos):
+                self.parent.restart_game()
         return True
 
 
@@ -173,6 +185,9 @@ class Label(pygame.sprite.Sprite):
     @property
     def text_color(self):
         return self.__text_color
+
+    def update(self, event):
+        return True
 
     def change_text(self, text, font, text_color=Colors.WHITE.value):
         self.__text = font.render(text, 1, text_color)
