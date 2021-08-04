@@ -1,2 +1,2 @@
 # ChessGame
-Quess - a simple GUI chess game
+Quess - a GUI chess game
