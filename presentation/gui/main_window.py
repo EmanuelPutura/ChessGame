@@ -291,9 +291,6 @@ class MainWindow:
             pygame.draw.line(self.__window, Colors.BLACK1.value, start, end, 4)
 
     def restart_game(self):
-        # TODO: change this. Experimental use only
-        pcw = PieceChoiceWindow(PieceColor.WHITE)
-
         self.__white_turn = True
         self.__current_piece = None
         self.__game_service.board.reinit()
