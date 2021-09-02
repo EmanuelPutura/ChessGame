@@ -1,5 +1,8 @@
 from chess_board.board import ChessBoard
-from chess_pieces.king import King
+from chess_pieces.bishop import Bishop
+from chess_pieces.knight import Knight
+from chess_pieces.queen import Queen
+from chess_pieces.rook import Rook
 from errors.exceptions import InvalidMoveError
 from tools.constants import PieceColor
 
@@ -55,6 +58,21 @@ class GameService:
         king = king_color_dictionary[moving_color]
 
         check = self.__check(moving_color)
-        # checkmate = self.__check(moving_color) and king.get_move_options() == []
-        # print("Check: {}, Checkmate: {}".format(check, checkmate))
         return False
+
+    def check_pawn_reached_table_end(self, piece):
+        if piece.__class__.__name__ == 'Pawn':
+            if piece.color == PieceColor.WHITE and piece.x == 0:
+                return True
+            elif piece.color == PieceColor.BLACK and piece.x == 7:
+                return True
+            else:
+                return False
+        return False
+
+    def pawn_reached_table_end(self, pawn, new_piece):
+        if new_piece is None:
+            return
+        piece_dictionary = {'Bishop': Bishop, 'Knight': Knight, 'Rook': Rook, 'Queen': Queen}
+        new_piece = piece_dictionary[new_piece](self.__chess_board, pawn.x, pawn.y, pawn.color)
+        self.__chess_board[pawn.x, pawn.y] = new_piece

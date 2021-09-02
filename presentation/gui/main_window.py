@@ -4,6 +4,10 @@ from tkinter import messagebox
 
 import pygame
 
+from chess_pieces.bishop import Bishop
+from chess_pieces.knight import Knight
+from chess_pieces.queen import Queen
+from chess_pieces.rook import Rook
 from errors.exceptions import UserInputError
 from presentation.gui.constants import Colors, Dimensions
 from presentation.gui.game_board import GameBoard
@@ -331,6 +335,11 @@ class MainWindow:
                                     self.__widgets_group.remove(self.__turn_label)
                                     self.__turn_label = None
                                     self.__init_winner_button()
+
+                                # if the pawn reached the end of the table, let the player choose a new piece
+                                if self.__game_service.check_pawn_reached_table_end(self.__current_piece):
+                                    choice_window = PieceChoiceWindow(self.__current_piece.color)
+                                    self.__game_service.pawn_reached_table_end(self.__current_piece, choice_window.piece)
 
                                 if self.__turn_label is not None:
                                     turn_map = {PieceColor.WHITE: 'Current turn: black player', PieceColor.BLACK: 'Current turn: white player'}
