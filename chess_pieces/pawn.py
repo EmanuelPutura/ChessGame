@@ -51,10 +51,11 @@ class Pawn(Piece):
 
         # normal moves
         move = self.__normal_moves[0]
-        if self._parent.validate_move(self._x + move[0], self._y + move[1]) and self._parent[self._x + move[0], self._y + move[1]] is None:
+        basic_move_condition = self._parent.validate_move(self._x + move[0], self._y + move[1]) and self._parent[self._x + move[0], self._y + move[1]] is None
+        if basic_move_condition:
             options.append((self._x + move[0], self._y + move[1]))
         if not self.__made_move and self._parent.validate_move(self._x + self.__normal_moves[1][0], self._y + self.__normal_moves[1][1]) \
-                and self._parent[self._x + self.__normal_moves[1][0], self._y + self.__normal_moves[1][1]] is None:
+                and self._parent[self._x + self.__normal_moves[1][0], self._y + self.__normal_moves[1][1]] is None and basic_move_condition:
             options.append((self._x + self.__normal_moves[1][0], self._y + self.__normal_moves[1][1]))
 
         # attack moves
