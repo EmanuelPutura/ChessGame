@@ -54,6 +54,15 @@ class RookTypeMovement(Piece):
 class Rook(Piece):
     def __init__(self, parent, x, y, color):
         super().__init__(parent, x, y, color)
+        self.__has_moved = False  # tells if the rook has moved since the game started or not; used in determining if castling is possible
+
+    @property
+    def has_moved(self):
+        return self.__has_moved
+
+    @has_moved.setter
+    def has_moved(self, other):
+        self.__has_moved = other
 
     def attempt_move(self, x, y):
         if not self._validate_board_move(x, y):
@@ -71,6 +80,7 @@ class Rook(Piece):
             raise InvalidMoveError("InvalidMoveError: Piece '{}' cannot be moved to cell ({}, {}).".format(self.__class__.__name__, x, y))
 
         self._parent[x, y] = self
+        self.__has_moved = True
 
     def get_move_options(self, base_call=True):
         if base_call and super().get_move_options():

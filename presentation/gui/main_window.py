@@ -4,10 +4,6 @@ from tkinter import messagebox
 
 import pygame
 
-from chess_pieces.bishop import Bishop
-from chess_pieces.knight import Knight
-from chess_pieces.queen import Queen
-from chess_pieces.rook import Rook
 from errors.exceptions import UserInputError
 from presentation.gui.constants import Colors, Dimensions
 from presentation.gui.game_board import GameBoard

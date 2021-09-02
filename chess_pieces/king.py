@@ -6,6 +6,11 @@ from tools.constants import PieceColor
 class King(Piece):
     def __init__(self, parent, x, y, color):
         super().__init__(parent, x, y, color)
+        self.__has_moved = False  # tells if the rook has moved since the game started or not; used in determining if castling is possible
+
+    @property
+    def has_moved(self):
+        return self.__has_moved
 
     def attempt_move(self, x, y):
         if not self._validate_board_move(x, y):
@@ -56,12 +61,63 @@ class King(Piece):
         return dangerous_pieces
 
     def move(self, x, y):
+        # castling case
+        if (x, y) in self.get_castling_options():
+            rooks = {PieceColor.BLACK: [(0, 0), (0, 7)], PieceColor.WHITE: [(7, 0), (7, 7)]}[self.color]
+
+            rook_position = None
+            new_positions = None
+
+            for rook_possible_position in rooks:
+                new_positions = self.__get_castling_king_rook_new_positions(rook_possible_position)
+                if new_positions[0] == (x, y):
+                    rook_position = rook_possible_position
+                    break
+            self._parent[x, y] = self
+            self._parent[rook_position].has_moved = True
+            self._parent[new_positions[1]] = self._parent[rook_position]
+            self.__has_moved = True
+            return
+
         if not self.attempt_move(x, y):
             raise InvalidMoveError('InvalidMoveError: Cannot move to ({}, {}) cell.'.format(x, y))
         if (x, y) not in self.get_move_options():
             raise InvalidMoveError("InvalidMoveError: Piece '{}' cannot be moved to cell ({}, {}).".format(self.__class__.__name__, x, y))
 
         self._parent[x, y] = self
+        self.__has_moved = True
+
+    def __get_castling_king_rook_new_positions(self, rook_initial_position):
+        """
+        Being given the castling rook current position, computes the new positions of the king and rook after castling
+        :param rook_initial_position: the current castling rook position
+        :return: a tuple with the first element being the new king's position and the second one the rook's new position
+        """
+        new_positions = {(PieceColor.BLACK, (0, 0)): ((0, 2), (0, 3)), (PieceColor.BLACK, (0, 7)): ((0, 6), (0, 5)),
+                         (PieceColor.WHITE, (7, 0)): ((7, 2), (7, 3)), (PieceColor.WHITE, (7, 7)): ((7, 6), (7, 5))}
+        return new_positions[self.color, rook_initial_position]
+
+    def get_castling_options(self):
+        # check for castling move
+        rooks = {PieceColor.BLACK: [(0, 0), (0, 7)], PieceColor.WHITE: [(7, 0), (7, 7)]}
+        # the cells that shall be free in order to do castling, depending on the rook position
+        free_cells_castling = {(0, 0): [(0, 1), (0, 2), (0, 3)], (0, 7): [(0, 6), (0, 5)],
+                               (7, 0): [(7, 1), (7, 2), (7, 3)], (7, 7): [(7, 6), (7, 5)]}
+
+        options = []
+        if not self.check_safe(self.x, self.y) or self.__has_moved:
+            return []
+
+        for rook_position in rooks[self.color]:
+            if self._parent[rook_position].__class__.__name__ == 'Rook' and not self._parent[rook_position].has_moved:
+                all_free = True
+                for cell in free_cells_castling[rook_position]:
+                    if self._parent[cell] is not None:
+                        all_free = False
+                        break
+                if all_free:
+                    options.append(self.__get_castling_king_rook_new_positions(rook_position)[0])
+        return options
 
     def get_move_options(self, base_call=True):
         if base_call and super().get_move_options():
@@ -77,4 +133,5 @@ class King(Piece):
             if self.attempt_move(x, y):
                 options.append((x, y))
 
+        options += self.get_castling_options()
         return options

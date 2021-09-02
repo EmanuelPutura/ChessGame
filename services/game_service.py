@@ -52,12 +52,6 @@ class GameService:
         enemy_color = PieceColor.WHITE if moving_color == PieceColor.BLACK else PieceColor.BLACK
         if self.checkmate(enemy_color):
             return True
-
-        # get the enemy king, which might be in check after the move
-        king_color_dictionary = {PieceColor.WHITE: self.__black_king, PieceColor.BLACK: self.__white_king}
-        king = king_color_dictionary[moving_color]
-
-        check = self.__check(moving_color)
         return False
 
     def check_pawn_reached_table_end(self, piece):
