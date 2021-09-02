@@ -324,6 +324,8 @@ class MainWindow:
                         if table_position is not None and self.__turn_label is not None:
                             moving_color = PieceColor.WHITE if self.__white_turn else PieceColor.BLACK
 
+                            # TODO: check resulted by moving a protecting piece
+
                             if self.__current_piece is not None and self.__current_piece.color == moving_color and table_position in self.__current_piece.get_move_options():
                                 # make the move
                                 self.__white_turn = not self.__white_turn

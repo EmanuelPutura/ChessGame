@@ -9,7 +9,7 @@ from services.game_service import GameService
 from tests.test_piece_moving import TestPieceMoving
 
 if __name__ == "__main__":
-    TestPieceMoving().test_all()
+    # TestPieceMoving().test_all()
 
     game_service = GameService()
     gui = MainWindow(game_service)

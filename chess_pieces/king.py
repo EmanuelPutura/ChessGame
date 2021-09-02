@@ -116,7 +116,16 @@ class King(Piece):
                         all_free = False
                         break
                 if all_free:
-                    options.append(self.__get_castling_king_rook_new_positions(rook_position)[0])
+                    new_positions = self.__get_castling_king_rook_new_positions(rook_position)
+                    king_position = (self.x, self.y)
+                    self._parent[new_positions[0]] = self
+                    self._parent[new_positions[1]] = self._parent[rook_position]
+
+                    if self.check_safe(new_positions[0][0], new_positions[0][1]):
+                        options.append(new_positions[0])
+                    self._parent[king_position] = self
+                    self._parent[rook_position] = self._parent[new_positions[1]]
+
         return options
 
     def get_move_options(self, base_call=True):

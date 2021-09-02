@@ -36,5 +36,14 @@ class Knight(Piece):
         for move in self.__possible_moves:
             if self._parent.validate_move(self._x + move[0], self._y + move[1]) and (self._parent[self._x + move[0], self._y + move[1]] is None or
                             self._parent[self._x + move[0], self._y + move[1]].color != self._color):
-                options.append((self._x + move[0], self._y + move[1]))
+                coordinates = (self.x, self.y)
+                old_piece = self._parent[self._x + move[0], self._y + move[1]]
+                self._parent[self._x + move[0], self._y + move[1]] = self
+
+                king = self._parent.get_king(self._color)
+                if king.check_safe(king.x, king.y):
+                    options.append((coordinates[0] + move[0], coordinates[1] + move[1]))
+
+                self._parent[coordinates] = self
+                self._parent[coordinates[0] + move[0], coordinates[1] + move[1]] = old_piece
         return options

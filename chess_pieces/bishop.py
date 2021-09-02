@@ -37,7 +37,18 @@ class DiagonalTypeMovement(Piece):
 
             while self._parent.validate_move(x, y) and (
                     self._parent[x, y] is None or self._parent[x, y].color != self._color):
-                options.append((x, y))
+                coordinates = (self.x, self.y)
+                current_piece = self._parent[coordinates]
+                old_piece = self._parent[x, y]
+                self._parent[x, y] = current_piece
+
+                king = self._parent.get_king(self._color)
+                if king.check_safe(king.x, king.y):
+                    options.append((x, y))
+
+                self._parent[coordinates] = current_piece
+                self._parent[x, y] = old_piece
+
                 if self._parent[x, y] is not None and self._parent[x, y].color != self._color:
                     break
                 x += direction[0]

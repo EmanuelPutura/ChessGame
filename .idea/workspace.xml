@@ -23,7 +23,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f9fb620e-864a-4645-860d-d447c81affbf" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chess_pieces/bishop.py" beforeDir="false" afterPath="$PROJECT_DIR$/chess_pieces/bishop.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chess_pieces/king.py" beforeDir="false" afterPath="$PROJECT_DIR$/chess_pieces/king.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chess_pieces/knight.py" beforeDir="false" afterPath="$PROJECT_DIR$/chess_pieces/knight.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chess_pieces/pawn.py" beforeDir="false" afterPath="$PROJECT_DIR$/chess_pieces/pawn.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chess_pieces/rook.py" beforeDir="false" afterPath="$PROJECT_DIR$/chess_pieces/rook.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/presentation/gui/main_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/presentation/gui/main_window.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -209,7 +216,7 @@
       <workItem from="1627669954716" duration="4052000" />
       <workItem from="1627720778909" duration="3949000" />
       <workItem from="1630504390669" duration="4098000" />
-      <workItem from="1630571964187" duration="10613000" />
+      <workItem from="1630571964187" duration="14918000" />
     </task>
     <servers />
   </component>
@@ -233,38 +240,38 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="154" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1630505465066" />
-    <state width="1493" height="154" key="GridCell.Tab.0.bottom" timestamp="1630593082153">
+    <state width="1493" height="154" key="GridCell.Tab.0.bottom" timestamp="1630601833981">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="154" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1630593082153" />
-    <state width="1493" height="154" key="GridCell.Tab.0.center" timestamp="1630593082153">
+    <state width="1493" height="154" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1630601833981" />
+    <state width="1493" height="154" key="GridCell.Tab.0.center" timestamp="1630601833981">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="154" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1630593082153" />
-    <state width="1493" height="154" key="GridCell.Tab.0.left" timestamp="1630593082153">
+    <state width="1493" height="154" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1630601833981" />
+    <state width="1493" height="154" key="GridCell.Tab.0.left" timestamp="1630601833981">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="154" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1630593082153" />
-    <state width="1493" height="154" key="GridCell.Tab.0.right" timestamp="1630593082153">
+    <state width="1493" height="154" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1630601833981" />
+    <state width="1493" height="154" key="GridCell.Tab.0.right" timestamp="1630601833981">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="154" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1630593082153" />
-    <state width="1493" height="145" key="GridCell.Tab.1.bottom" timestamp="1630576351063">
+    <state width="1493" height="154" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1630601833981" />
+    <state width="1493" height="160" key="GridCell.Tab.1.bottom" timestamp="1630601703352">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="145" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1630576351063" />
-    <state width="1493" height="145" key="GridCell.Tab.1.center" timestamp="1630576351063">
+    <state width="1493" height="160" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1630601703352" />
+    <state width="1493" height="160" key="GridCell.Tab.1.center" timestamp="1630601703352">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="145" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1630576351063" />
-    <state width="1493" height="145" key="GridCell.Tab.1.left" timestamp="1630576351063">
+    <state width="1493" height="160" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1630601703352" />
+    <state width="1493" height="160" key="GridCell.Tab.1.left" timestamp="1630601703352">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="145" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1630576351063" />
-    <state width="1493" height="145" key="GridCell.Tab.1.right" timestamp="1630576351063">
+    <state width="1493" height="160" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1630601703352" />
+    <state width="1493" height="160" key="GridCell.Tab.1.right" timestamp="1630601703352">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="145" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1630576351063" />
+    <state width="1493" height="160" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1630601703352" />
     <state x="584" y="346" key="ReplaceDuplicatesPrompt" timestamp="1630506321607">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -273,10 +280,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="596" y="198" key="refactoring.ChangeSignatureDialog/0.0.1536.824@0.0.1536.824" timestamp="1626965905417" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1630590253776">
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1630601803080">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1630590253776" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1630601803080" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
@@ -290,7 +297,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ChessGame$Unittests_in_tests.coverage" NAME="Unittests in tests Coverage Results" MODIFIED="1614193618928" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/ChessGame$main.coverage" NAME="main Coverage Results" MODIFIED="1630593082146" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ChessGame$main.coverage" NAME="main Coverage Results" MODIFIED="1630601833975" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ChessGame$board.coverage" NAME="board Coverage Results" MODIFIED="1613584024998" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/chess_board" />
     <SUITE FILE_PATH="coverage/ChessGame$Unittests_for_test_piece_moving_TestPieceMoving_test_basic_movement.coverage" NAME="Unittests for test_piece_moving.TestPieceMoving.test_basic_movement Coverage Results" MODIFIED="1613598202626" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/ChessGame$game_service.coverage" NAME="game_service Coverage Results" MODIFIED="1613589505628" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/services" />
