@@ -12,3 +12,11 @@ class IsCheckError(InvalidMoveError):
 
 class InvalidPieceError(Exception):
     pass
+
+
+class RepositoryError(Exception):
+    pass
+
+
+class PasswordsDoNotMatchError(Exception):
+    pass

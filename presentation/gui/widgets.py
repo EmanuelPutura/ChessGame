@@ -266,6 +266,10 @@ class TextBox(pygame.sprite.Sprite):
         self.__active = False
         self.__hidden = hidden
 
+    @property
+    def text(self):
+        return self.__text
+
     def update(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
             # If the user clicked on the textBox rectangle

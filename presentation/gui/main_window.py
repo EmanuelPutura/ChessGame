@@ -4,7 +4,7 @@ from tkinter import messagebox
 
 import pygame
 
-from errors.exceptions import UserInputError
+from errors.exceptions import UserInputError, PasswordsDoNotMatchError
 from presentation.gui.constants import Colors, Dimensions
 from presentation.gui.game_board import GameBoard
 from presentation.gui.gradient_generator import GradientGenerator
@@ -15,9 +15,11 @@ from tools.constants import PieceColor
 
 
 class MainWindow:
-    def __init__(self, game_service):
+    def __init__(self, game_service, users_service):
         pygame.init()
         self.__game_service = game_service
+        self.__users_service = users_service
+
         self.__white_turn = True
         self.__current_piece = None
 
@@ -32,6 +34,11 @@ class MainWindow:
 
         self.__turn_label = None
         self.__winner_button = None
+        self.__sign_up_button = None
+        self.__email_textbox = None
+        self.__username_textbox = None
+        self.__password_textbox = None
+        self.__repeated_password_textbox = None
 
         self.init_widgets()
 
@@ -51,6 +58,12 @@ class MainWindow:
         screen_width, screen_height = pygame.display.get_surface().get_size()
         margin = Dimensions.MARGIN.value
         cell_dimension = self.__game_board.cell_dimension
+
+        self.__sign_up_button = None
+        self.__email_textbox = None
+        self.__username_textbox = None
+        self.__password_textbox = None
+        self.__repeated_password_textbox = None
 
         widget_x = screen_height
         widget_width = screen_width - screen_height - margin
@@ -115,8 +128,8 @@ class MainWindow:
         get_widget_y = lambda middle, height: middle - height / 2
 
         widget_y = get_widget_y(margin + cell_dimension / 2, widget_height)
-        sign_up_button = ImageButton(self, r'\\assets\sign_up.png', widget_width, widget_height, widget_x, widget_y)
-        sign_up_button.add(self.__widgets_group)
+        self.__sign_up_button = ImageButton(self, r'\\assets\sign_up.png', widget_width, widget_height, widget_x, widget_y)
+        self.__sign_up_button.add(self.__widgets_group)
 
         widget_x -= 20
         widget_y = widget_y + widget_height + 10
@@ -124,29 +137,29 @@ class MainWindow:
         logged_in_label.add(self.__widgets_group)
 
         widget_width += 40
-        username_text = TextBox(widget_x, widget_y, widget_width, widget_height, False, '', widget_font)
-        username_text.add(self.__widgets_group)
+        self.__email_textbox = TextBox(widget_x, widget_y, widget_width, widget_height, False, '', widget_font)
+        self.__email_textbox.add(self.__widgets_group)
 
         widget_y = widget_y + widget_height + 10
         password_label = Label(self, 'Username:', widget_font, widget_width, widget_height, widget_x, widget_y)
         password_label.add(self.__widgets_group)
 
-        password_text = TextBox(widget_x, widget_y, widget_width, widget_height, False, '', widget_font)
-        password_text.add(self.__widgets_group)
+        self.__username_textbox = TextBox(widget_x, widget_y, widget_width, widget_height, False, '', widget_font)
+        self.__username_textbox.add(self.__widgets_group)
 
         widget_y = widget_y + widget_height + 10
         password_label = Label(self, 'Password:', widget_font, widget_width, widget_height, widget_x, widget_y)
         password_label.add(self.__widgets_group)
 
-        password_text = TextBox(widget_x, widget_y, widget_width, widget_height, True, '', widget_font)
-        password_text.add(self.__widgets_group)
+        self.__password_textbox = TextBox(widget_x, widget_y, widget_width, widget_height, True, '', widget_font)
+        self.__password_textbox.add(self.__widgets_group)
 
         widget_y = widget_y + widget_height + 10
         password_label = Label(self, 'Repeat password:', widget_font, widget_width, widget_height, widget_x, widget_y)
         password_label.add(self.__widgets_group)
 
-        password_text = TextBox(widget_x, widget_y, widget_width, widget_height, True, '', widget_font)
-        password_text.add(self.__widgets_group)
+        self.__repeated_password_textbox = TextBox(widget_x, widget_y, widget_width, widget_height, True, '', widget_font)
+        self.__repeated_password_textbox.add(self.__widgets_group)
 
         widget_x += 20
         widget_y = widget_y + widget_height + 10
@@ -303,6 +316,18 @@ class MainWindow:
             turn_map = {False: 'Current turn: black player', True: 'Current turn: white player'}
             self.__turn_label.text = turn_map[self.__white_turn]
 
+    def __sign_up_button_clicked(self):
+        email = self.__email_textbox.text
+        username = self.__username_textbox.text
+        password = self.__password_textbox.text
+        repeated_password = self.__repeated_password_textbox.text
+        if repeated_password != password:
+            raise PasswordsDoNotMatchError("Passwords do not match!")
+
+        self.__users_service.insert(email, username, password)
+        self.__widgets_group.empty()
+        self.init_widgets()
+
     def run(self):
         draw_options = False
         running = True
@@ -317,14 +342,16 @@ class MainWindow:
 
                     if event.type == pygame.QUIT:
                         running = False
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        if self.__sign_up_button is not None and self.__sign_up_button.rectangle.collidepoint(event.pos):
+                            self.__sign_up_button_clicked()
+
                     if event.type == pygame.MOUSEBUTTONUP:
                         position = pygame.mouse.get_pos()
                         table_position = self.__game_board.find_board_cell(position[0], position[1])
 
                         if table_position is not None and self.__turn_label is not None:
                             moving_color = PieceColor.WHITE if self.__white_turn else PieceColor.BLACK
-
-                            # TODO: check resulted by moving a protecting piece
 
                             if self.__current_piece is not None and self.__current_piece.color == moving_color and table_position in self.__current_piece.get_move_options():
                                 # make the move
