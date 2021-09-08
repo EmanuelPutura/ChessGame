@@ -39,8 +39,8 @@ class DatabaseManager:
 class UsersDatabaseManager(DatabaseManager):
     @staticmethod
     def get_database_line(user):
-        print(r"('{}','{}','{}');".format(user.email, user.username, user.databaseKey))
-        return r"('{}','{}','{}');".format(user.email, user.username, user.databaseKey)
+        print(r"('{}','{}','{}');".format(user.email, user.username, user.database_key))
+        return r"('{}','{}','{}');".format(user.email, user.username, user.database_key)
 
 
 class UsersDatabaseRepository(MemoryRepository):
@@ -67,7 +67,7 @@ class UsersDatabaseRepository(MemoryRepository):
         super().insert(user)
         cursor = self.__db_connection.cursor()
         try:
-            cursor.execute("""INSERT INTO users (email, username, key) VALUES (?,?,?);""", (user.email, user.username, user.databaseKey))
+            cursor.execute("""INSERT INTO users (email, username, key) VALUES (?,?,?);""", (user.email, user.username, user.database_key))
             self.__db_connection.commit()
         except sqlite3.Error as error:
             raise RepositoryError("Database query execution error occurred: '{}'\n".format(str(error)))
@@ -87,7 +87,7 @@ class UsersDatabaseRepository(MemoryRepository):
         super().update(user, new_user)
         cursor = self.__db_connection.cursor()
         try:
-            cursor.execute("""UPDATE users SET key = ?, username = ?, email = ? WHERE email = ? AND username = ?""", (new_user.databaseKey, new_user.username, new_user.email, user.email, user.username))
+            cursor.execute("""UPDATE users SET key = ?, username = ?, email = ? WHERE email = ? AND username = ?""", (new_user.database_key, new_user.username, new_user.email, user.email, user.username))
             self.__db_connection.commit()
         except sqlite3.Error as error:
             raise RepositoryError("Database query execution error occurred: '{}'\n".format(str(error)))

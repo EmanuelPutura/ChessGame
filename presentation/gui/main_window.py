@@ -37,13 +37,15 @@ class MainWindow:
         self.__turn_label = None
         self.__winner_button = None
         self.__sign_up_button = None
-        self.__email_textbox = None
-        self.__username_textbox = None
-        self.__password_textbox = None
-        self.__repeated_password_textbox = None
+        self.__signup_email_textbox = None
+        self.__signup_username_textbox = None
+        self.__signup_password_textbox = None
+        self.__signup_repeated_password_textbox = None
         self.__verification_textbox = None
         self.__submit_button = None
         self.__code = None
+        self.__login_username_textbox = None
+        self.__login_password_textbox = None
 
         self.init_widgets()
 
@@ -65,10 +67,10 @@ class MainWindow:
         cell_dimension = self.__game_board.cell_dimension
 
         self.__sign_up_button = None
-        self.__email_textbox = None
-        self.__username_textbox = None
-        self.__password_textbox = None
-        self.__repeated_password_textbox = None
+        self.__signup_email_textbox = None
+        self.__signup_username_textbox = None
+        self.__signup_password_textbox = None
+        self.__signup_repeated_password_textbox = None
         self.__verification_textbox = None
         self.__submit_button = None
         self.__code = None
@@ -90,15 +92,15 @@ class MainWindow:
         logged_in_label.add(self.__widgets_group)
 
         widget_width += 40
-        username_text = TextBox(widget_x, widget_y, widget_width, widget_height, False, '', widget_font)
-        username_text.add(self.__widgets_group)
+        self.__login_username_textbox = TextBox(widget_x, widget_y, widget_width, widget_height, False, '', widget_font)
+        self.__login_username_textbox.add(self.__widgets_group)
 
         widget_y = widget_y + widget_height + 10
         password_label = Label(self, 'Password:', widget_font, widget_width, widget_height, widget_x, widget_y)
         password_label.add(self.__widgets_group)
 
-        password_text = TextBox(widget_x, widget_y, widget_width, widget_height, True, '', widget_font)
-        password_text.add(self.__widgets_group)
+        self.__login_password_textbox = TextBox(widget_x, widget_y, widget_width, widget_height, True, '', widget_font)
+        self.__login_password_textbox.add(self.__widgets_group)
 
         widget_y = widget_y + widget_height + 10
         create_account_button = CreateAccountTextButton(self, 'Create an account', widget_font, widget_width, widget_height, widget_x, widget_y)
@@ -145,29 +147,29 @@ class MainWindow:
         logged_in_label.add(self.__widgets_group)
 
         widget_width += 40
-        self.__email_textbox = TextBox(widget_x, widget_y, widget_width, widget_height, False, '', widget_font)
-        self.__email_textbox.add(self.__widgets_group)
+        self.__signup_email_textbox = TextBox(widget_x, widget_y, widget_width, widget_height, False, '', widget_font)
+        self.__signup_email_textbox.add(self.__widgets_group)
 
         widget_y = widget_y + widget_height + 10
         password_label = Label(self, 'Username:', widget_font, widget_width, widget_height, widget_x, widget_y)
         password_label.add(self.__widgets_group)
 
-        self.__username_textbox = TextBox(widget_x, widget_y, widget_width, widget_height, False, '', widget_font)
-        self.__username_textbox.add(self.__widgets_group)
+        self.__signup_username_textbox = TextBox(widget_x, widget_y, widget_width, widget_height, False, '', widget_font)
+        self.__signup_username_textbox.add(self.__widgets_group)
 
         widget_y = widget_y + widget_height + 10
         password_label = Label(self, 'Password:', widget_font, widget_width, widget_height, widget_x, widget_y)
         password_label.add(self.__widgets_group)
 
-        self.__password_textbox = TextBox(widget_x, widget_y, widget_width, widget_height, True, '', widget_font)
-        self.__password_textbox.add(self.__widgets_group)
+        self.__signup_password_textbox = TextBox(widget_x, widget_y, widget_width, widget_height, True, '', widget_font)
+        self.__signup_password_textbox.add(self.__widgets_group)
 
         widget_y = widget_y + widget_height + 10
         password_label = Label(self, 'Repeat password:', widget_font, widget_width, widget_height, widget_x, widget_y)
         password_label.add(self.__widgets_group)
 
-        self.__repeated_password_textbox = TextBox(widget_x, widget_y, widget_width, widget_height, True, '', widget_font)
-        self.__repeated_password_textbox.add(self.__widgets_group)
+        self.__signup_repeated_password_textbox = TextBox(widget_x, widget_y, widget_width, widget_height, True, '', widget_font)
+        self.__signup_repeated_password_textbox.add(self.__widgets_group)
 
         widget_x += 20
         widget_y = widget_y + widget_height + 10
@@ -325,10 +327,10 @@ class MainWindow:
             self.__turn_label.text = turn_map[self.__white_turn]
 
     def __sign_up_button_clicked(self):
-        email = self.__email_textbox.text
-        username = self.__username_textbox.text
-        password = self.__password_textbox.text
-        repeated_password = self.__repeated_password_textbox.text
+        email = self.__signup_email_textbox.text
+        username = self.__signup_username_textbox.text
+        password = self.__signup_password_textbox.text
+        repeated_password = self.__signup_repeated_password_textbox.text
         CredentialsValidator.validate(email, username, password, repeated_password, self.__users_service)
 
         sender = EmailSender()
@@ -368,9 +370,9 @@ class MainWindow:
         back_button.add(self.__widgets_group)
 
     def __submit_button_clicked(self):
-        email = self.__email_textbox.text
-        username = self.__username_textbox.text
-        password = self.__password_textbox.text
+        email = self.__signup_email_textbox.text
+        username = self.__signup_username_textbox.text
+        password = self.__signup_password_textbox.text
         code = self.__verification_textbox.text
 
         if str(self.__code) != code:
@@ -381,9 +383,11 @@ class MainWindow:
         self.init_widgets()
 
     def attempt_login(self):
-        print("Attempt login!")
-        # self.parent.widgets_group.empty()
-        # self.parent.init_login_widgets()
+        username = self.__login_username_textbox.text
+        password = self.__login_password_textbox.text
+        self.__users_service.attempt_login(username, password)
+        self.__widgets_group.empty()
+        self.init_login_widgets()
 
     def run(self):
         draw_options = False

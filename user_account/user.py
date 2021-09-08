@@ -21,8 +21,12 @@ class User:
         return self.__key
 
     @property
-    def databaseKey(self):
+    def database_key(self):
         return self.__salt + self.__key
+
+    @property
+    def salt(self):
+        return self.__salt
 
     @key.setter
     def key(self, other):

@@ -28,3 +28,7 @@ class InvalidAccountCredentialsError(Exception):
 
 class InvalidVerificationCodeError(Exception):
     pass
+
+
+class LoginError(Exception):
+    pass
