@@ -68,15 +68,16 @@ class ImageButton(pygame.sprite.Sprite):
 
 
 class BackImageButton(ImageButton):
-    def __init__(self, parent, file_name, width, height, x=0, y=0):
+    def __init__(self, parent, clicked_function, file_name, width, height, x=0, y=0):
         super().__init__(parent, file_name, width, height, x, y)
+        self.__clicked_function = clicked_function
 
     def update(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
             # If the user clicked on the image rectangle
             if self.rectangle.collidepoint(event.pos):
-                self.parent.widgets_group.empty()
-                self.parent.init_widgets()
+                self.__clicked_function()
+                # self.parent.basic_back_button_clicked()
         return True
 
 
@@ -113,7 +114,20 @@ class PlayAsGuestImageButton(ImageButton):
             # If the user clicked on the image rectangle
             if self.rectangle.collidepoint(event.pos):
                 self.parent.widgets_group.empty()
-                self.parent.init_play_as_guest_widgets()
+                self.parent.init_play_widgets(self.parent.basic_back_button_clicked)
+        return True
+
+
+class LoggedInPlayImageButton(ImageButton):
+    def __init__(self, parent, file_name, width, height, x=0, y=0):
+        super().__init__(parent, file_name, width, height, x, y)
+
+    def update(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            # If the user clicked on the image rectangle
+            if self.rectangle.collidepoint(event.pos):
+                self.parent.widgets_group.empty()
+                self.parent.init_play_widgets(self.parent.logged_in_play_back_button_clicked)
         return True
 
 

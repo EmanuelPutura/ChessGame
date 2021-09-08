@@ -1,4 +1,3 @@
-import os
 import tkinter
 from tkinter import messagebox
 
@@ -10,7 +9,8 @@ from presentation.gui.game_board import GameBoard
 from presentation.gui.gradient_generator import GradientGenerator
 from presentation.gui.piece_choice_window import PieceChoiceWindow
 from presentation.gui.widgets import Label, ImageButton, TextBox, CreateAccountTextButton, BackImageButton, \
-    LoginImageButton, ExitImageButton, PlayAsGuestImageButton, DefaultImageButton, RestartImageButton
+    LoginImageButton, ExitImageButton, PlayAsGuestImageButton, DefaultImageButton, RestartImageButton, \
+    LoggedInPlayImageButton
 from tools.constants import PieceColor
 from tools.validators import CredentialsValidator
 from tools.email_sender import EmailSender
@@ -174,13 +174,10 @@ class MainWindow:
         widget_x += 20
         widget_y = widget_y + widget_height + 10
         widget_width -= 40
-        back_button = BackImageButton(self, r'\\assets\back.png', widget_width, widget_height, widget_x, widget_y)
+        back_button = BackImageButton(self, self.basic_back_button_clicked, r'\\assets\back.png', widget_width, widget_height, widget_x, widget_y)
         back_button.add(self.__widgets_group)
 
     def init_login_widgets(self):
-        relative_path = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-        avatar_image = pygame.image.load(relative_path + r'\\assets\avatar.png')
-
         screen_width, screen_height = pygame.display.get_surface().get_size()
         margin = Dimensions.MARGIN.value
         cell_dimension = self.__game_board.cell_dimension
@@ -207,7 +204,7 @@ class MainWindow:
         widget_width = screen_width - screen_height - margin
         widget_height = margin
         widget_y = widget_y + widget_height + cell_dimension + margin
-        play_button = ImageButton(self, r'\\assets\play.png', widget_width, widget_height, widget_x, widget_y)
+        play_button = LoggedInPlayImageButton(self, r'\\assets\play.png', widget_width, widget_height, widget_x, widget_y)
         play_button.add(self.__widgets_group)
 
         widget_y = widget_y + widget_height + 10
@@ -219,21 +216,19 @@ class MainWindow:
         settings_button.add(self.__widgets_group)
 
         widget_y = widget_y + widget_height + 10
-        back_button = BackImageButton(self, r'\\assets\back.png', widget_width, widget_height, widget_x, widget_y)
+        back_button = BackImageButton(self, self.basic_back_button_clicked, r'\\assets\log_out.png', widget_width, widget_height, widget_x, widget_y)
         back_button.add(self.__widgets_group)
 
         widget_y = widget_y + widget_height + 10
         exit_button = ExitImageButton(self, r'\\assets\exit.png', widget_width, widget_height, widget_x, widget_y)
         exit_button.add(self.__widgets_group)
 
-    def init_play_as_guest_widgets(self):
+    def init_play_widgets(self, back_button_function):
         screen_width, screen_height = pygame.display.get_surface().get_size()
         margin = Dimensions.MARGIN.value
         cell_dimension = self.__game_board.cell_dimension
-        widget_font = pygame.font.SysFont('Benne', 20)
 
         widget_x = screen_height + 22.5
-        widget_width = 110
         widget_height = 110
 
         get_widget_y = lambda middle, height: middle - height / 2
@@ -259,7 +254,7 @@ class MainWindow:
         restart_button.add(self.__widgets_group)
 
         widget_y = widget_y + widget_height + 10
-        back_button = BackImageButton(self, r'\\assets\back.png', widget_width, widget_height, widget_x, widget_y)
+        back_button = BackImageButton(self, back_button_function, r'\\assets\back.png', widget_width, widget_height, widget_x, widget_y)
         back_button.add(self.__widgets_group)
 
         widget_y = widget_y + widget_height + 10
@@ -366,7 +361,7 @@ class MainWindow:
         self.__submit_button.add(self.__widgets_group)
 
         widget_y = widget_y + widget_height + 10
-        back_button = BackImageButton(self, r'\\assets\main_menu.png', widget_width, widget_height, widget_x, widget_y)
+        back_button = BackImageButton(self, self.basic_back_button_clicked, r'\\assets\main_menu.png', widget_width, widget_height, widget_x, widget_y)
         back_button.add(self.__widgets_group)
 
     def __submit_button_clicked(self):
@@ -386,6 +381,14 @@ class MainWindow:
         username = self.__login_username_textbox.text
         password = self.__login_password_textbox.text
         self.__users_service.attempt_login(username, password)
+        self.__widgets_group.empty()
+        self.init_login_widgets()
+
+    def basic_back_button_clicked(self):
+        self.__widgets_group.empty()
+        self.init_widgets()
+
+    def logged_in_play_back_button_clicked(self):
         self.__widgets_group.empty()
         self.init_login_widgets()
 
