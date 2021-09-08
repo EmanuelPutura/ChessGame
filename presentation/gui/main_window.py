@@ -10,7 +10,7 @@ from presentation.gui.gradient_generator import GradientGenerator
 from presentation.gui.piece_choice_window import PieceChoiceWindow
 from presentation.gui.widgets import Label, ImageButton, TextBox, CreateAccountTextButton, BackImageButton, \
     LoginImageButton, ExitImageButton, PlayAsGuestImageButton, DefaultImageButton, RestartImageButton, \
-    LoggedInPlayImageButton
+    LoggedInPlayImageButton, ChangePhotoImageButton, AccountPhotoImageButton
 from tools.constants import PieceColor
 from tools.validators import CredentialsValidator
 from tools.email_sender import EmailSender
@@ -21,6 +21,7 @@ class MainWindow:
         pygame.init()
         self.__game_service = game_service
         self.__users_service = users_service
+        self.__logged_in_username = None
 
         self.__white_turn = True
         self.__current_piece = None
@@ -190,7 +191,7 @@ class MainWindow:
         get_widget_y = lambda middle, height: middle - height / 2
         widget_y = get_widget_y(margin + cell_dimension / 2, widget_height) + margin
 
-        avatar_image = ImageButton(self, r'\\assets\avatar.png', widget_width, widget_height, widget_x, widget_y)
+        avatar_image = AccountPhotoImageButton(self, self.__users_service.get_user_image(self.__logged_in_username), widget_width, widget_height, widget_x, widget_y)
         avatar_image.add(self.__widgets_group)
 
         widget_x -= 5
@@ -208,6 +209,10 @@ class MainWindow:
         play_button.add(self.__widgets_group)
 
         widget_y = widget_y + widget_height + 10
+        change_photo = ChangePhotoImageButton(self, r'\\assets\change_photo.png', widget_width, widget_height, widget_x, widget_y)
+        change_photo.add(self.__widgets_group)
+
+        widget_y = widget_y + widget_height + 10
         tutorial_button = ImageButton(self, r'\\assets\tutorial.png', widget_width, widget_height, widget_x, widget_y)
         tutorial_button.add(self.__widgets_group)
 
@@ -216,7 +221,7 @@ class MainWindow:
         settings_button.add(self.__widgets_group)
 
         widget_y = widget_y + widget_height + 10
-        back_button = BackImageButton(self, self.basic_back_button_clicked, r'\\assets\log_out.png', widget_width, widget_height, widget_x, widget_y)
+        back_button = BackImageButton(self, self.log_out_back_button_clicked, r'\\assets\log_out.png', widget_width, widget_height, widget_x, widget_y)
         back_button.add(self.__widgets_group)
 
         widget_y = widget_y + widget_height + 10
@@ -382,14 +387,23 @@ class MainWindow:
         password = self.__login_password_textbox.text
         self.__users_service.attempt_login(username, password)
         self.__widgets_group.empty()
+        self.__logged_in_username = username
         self.init_login_widgets()
 
     def basic_back_button_clicked(self):
         self.__widgets_group.empty()
         self.init_widgets()
 
+    def log_out_back_button_clicked(self):
+        self.basic_back_button_clicked()
+        self.__logged_in_username = None
+
     def logged_in_play_back_button_clicked(self):
         self.__widgets_group.empty()
+        self.init_login_widgets()
+
+    def change_account_photo(self, photo_path):
+        self.__users_service.update_user_image(self.__logged_in_username, photo_path)
         self.init_login_widgets()
 
     def run(self):

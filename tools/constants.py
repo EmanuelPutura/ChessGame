@@ -16,3 +16,4 @@ class UserAccountConstants(Enum):
         Subject: Quess account confirmation
 
         Welcome to the Quess community, """
+    DEFAULT_ACCOUNT_IMAGE_PATH = r"\\assets\avatar.png"

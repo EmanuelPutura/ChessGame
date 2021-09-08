@@ -1,7 +1,7 @@
 import hashlib
 import os
 
-from errors.exceptions import LoginError
+from errors.exceptions import LoginError, InvalidUsernameError
 from tools.constants import UserAccountConstants
 from user_account.user import User
 
@@ -49,3 +49,17 @@ class UsersService:
         key = self.__encode_password(password, salt)
         if found_user.database_key != key:
             raise LoginError("Invalid password!")
+
+    def get_user_image(self, username):
+        for user in self.__users_repository.entities:
+            if user.username == username:
+                return user.photo
+        raise InvalidUsernameError("Username {} was not found!".format(username))
+
+    def update_user_image(self, username, photo_path):
+        for user in self.__users_repository.entities:
+            if user.username == username:
+                new_user = User(user.email, user.username, user.database_key, photo_path)
+                self.__users_repository.update(user, new_user)
+                return
+        raise InvalidUsernameError("Username {} was not found!".format(username))

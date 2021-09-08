@@ -1,10 +1,13 @@
 import os
+import tkinter
+from tkinter import filedialog
 
 import pygame
 
 from errors.exceptions import UserInputError
 from presentation.gui.constants import Colors
 from presentation.gui.gradient_generator import GradientGenerator
+from tools.constants import UserAccountConstants
 
 
 class Button(pygame.sprite.Sprite):
@@ -58,6 +61,26 @@ class ImageButton(pygame.sprite.Sprite):
     def update(self, event):
         return True
 
+    @property
+    def file_name(self):
+        return self.__file_name
+
+    @property
+    def width(self):
+        return self.__width
+
+    @property
+    def height(self):
+        return self.__height
+
+    @property
+    def x(self):
+        return self.__x
+
+    @property
+    def y(self):
+        return self.__y
+
     def draw(self, surface):
         relative_path = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
         image = pygame.image.load(relative_path + self.__file_name)
@@ -65,6 +88,23 @@ class ImageButton(pygame.sprite.Sprite):
         image.convert()
 
         surface.blit(image, (self.__x, self.__y))
+
+
+class AccountPhotoImageButton(ImageButton):
+    def __init__(self, parent, file_name, width, height, x=0, y=0):
+        super().__init__(parent, file_name, width, height, x, y)
+
+    def draw(self, surface):
+        relative_path = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+        try:
+            image = pygame.image.load(relative_path + self.file_name)
+        except FileNotFoundError:
+            image = pygame.image.load(relative_path + UserAccountConstants.DEFAULT_ACCOUNT_IMAGE_PATH.value)
+
+        image = pygame.transform.scale(image, (int(self.width), int(self.height)))
+        image.convert()
+
+        surface.blit(image, (self.x, self.y))
 
 
 class BackImageButton(ImageButton):
@@ -128,6 +168,23 @@ class LoggedInPlayImageButton(ImageButton):
             if self.rectangle.collidepoint(event.pos):
                 self.parent.widgets_group.empty()
                 self.parent.init_play_widgets(self.parent.logged_in_play_back_button_clicked)
+        return True
+
+
+class ChangePhotoImageButton(ImageButton):
+    def __init__(self, parent, file_name, width, height, x=0, y=0):
+        super().__init__(parent, file_name, width, height, x, y)
+
+    def update(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            # If the user clicked on the image rectangle
+            if self.rectangle.collidepoint(event.pos):
+                tkinter.Tk().withdraw()
+                path = filedialog.askopenfilename(initialdir="/", title="Select account photo", filetypes=(("jpg files", "*.txt"), ("png files", "*.png"),
+                   ("jpeg files", "*.jpeg"), ("all files", "*.*")))
+                relative_path = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+                path = os.path.relpath(path, relative_path)  # that's it
+                self.parent.change_account_photo("\\" + path)
         return True
 
 

@@ -2,11 +2,12 @@ from tools.constants import UserAccountConstants
 
 
 class User:
-    def __init__(self, email, username, key):
+    def __init__(self, email, username, key, photo=UserAccountConstants.DEFAULT_ACCOUNT_IMAGE_PATH.value):
         self.__email = email
         self.__username = username
         self.__salt = key[:UserAccountConstants.SALT_BYTES_NUMBER.value]
         self.__key = key[UserAccountConstants.SALT_BYTES_NUMBER.value:]
+        self.__photo = photo
 
     @property
     def email(self):
@@ -27,6 +28,10 @@ class User:
     @property
     def salt(self):
         return self.__salt
+
+    @property
+    def photo(self):
+        return self.__photo
 
     @key.setter
     def key(self, other):

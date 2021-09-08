@@ -32,3 +32,7 @@ class InvalidVerificationCodeError(Exception):
 
 class LoginError(Exception):
     pass
+
+
+class InvalidUsernameError(Exception):
+    pass

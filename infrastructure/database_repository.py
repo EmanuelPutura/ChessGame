@@ -39,8 +39,7 @@ class DatabaseManager:
 class UsersDatabaseManager(DatabaseManager):
     @staticmethod
     def get_database_line(user):
-        print(r"('{}','{}','{}');".format(user.email, user.username, user.database_key))
-        return r"('{}','{}','{}');".format(user.email, user.username, user.database_key)
+        return r"('{}','{}','{}','{}');".format(user.email, user.username, user.database_key, user.photo)
 
 
 class UsersDatabaseRepository(MemoryRepository):
@@ -51,7 +50,7 @@ class UsersDatabaseRepository(MemoryRepository):
         self.__load_data()
 
     def __create_users_table(self):
-        query = "CREATE TABLE IF NOT EXISTS users (email TEXT NOT NULL, username TEXT NOT NULL, key TEXT NOT NULL);"
+        query = "CREATE TABLE IF NOT EXISTS users (email TEXT NOT NULL, username TEXT NOT NULL, key TEXT NOT NULL, photo TEXT NOT NULL);"
         UsersDatabaseManager.execute_query(self.__db_connection, query)
 
     def __load_data(self):
@@ -59,7 +58,7 @@ class UsersDatabaseRepository(MemoryRepository):
         select_users_query = 'SELECT * FROM users'
         users = DatabaseManager.execute_read_query(self.__db_connection, select_users_query)
         for user_line in users:
-            user = User(user_line[0], user_line[1], user_line[2])
+            user = User(user_line[0], user_line[1], user_line[2], user_line[3])
             super().insert(user)
 
     def insert(self, user):
@@ -67,7 +66,7 @@ class UsersDatabaseRepository(MemoryRepository):
         super().insert(user)
         cursor = self.__db_connection.cursor()
         try:
-            cursor.execute("""INSERT INTO users (email, username, key) VALUES (?,?,?);""", (user.email, user.username, user.database_key))
+            cursor.execute("""INSERT INTO users (email, username, key, photo) VALUES (?,?,?,?);""", (user.email, user.username, user.database_key, user.photo))
             self.__db_connection.commit()
         except sqlite3.Error as error:
             raise RepositoryError("Database query execution error occurred: '{}'\n".format(str(error)))
@@ -87,7 +86,7 @@ class UsersDatabaseRepository(MemoryRepository):
         super().update(user, new_user)
         cursor = self.__db_connection.cursor()
         try:
-            cursor.execute("""UPDATE users SET key = ?, username = ?, email = ? WHERE email = ? AND username = ?""", (new_user.database_key, new_user.username, new_user.email, user.email, user.username))
+            cursor.execute("""UPDATE users SET key = ?, username = ?, email = ?, photo = ? WHERE email = ? AND username = ?""", (new_user.database_key, new_user.username, new_user.email, new_user.photo, user.email, user.username))
             self.__db_connection.commit()
         except sqlite3.Error as error:
             raise RepositoryError("Database query execution error occurred: '{}'\n".format(str(error)))
