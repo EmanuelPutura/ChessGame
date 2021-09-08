@@ -39,7 +39,8 @@ class DatabaseManager:
 class UsersDatabaseManager(DatabaseManager):
     @staticmethod
     def get_database_line(user):
-        return "('{}','{}','{}');".format(user.email, user.username, user.databaseKey)
+        print(r"('{}','{}','{}');".format(user.email, user.username, user.databaseKey))
+        return r"('{}','{}','{}');".format(user.email, user.username, user.databaseKey)
 
 
 class UsersDatabaseRepository(MemoryRepository):
@@ -64,19 +65,29 @@ class UsersDatabaseRepository(MemoryRepository):
     def insert(self, user):
         self.__load_data()
         super().insert(user)
-        insert_query = "INSERT INTO users (email, username, key) VALUES\n\t"
-        insert_query += UsersDatabaseManager.get_database_line(user)
-        UsersDatabaseManager.execute_query(self.__db_connection, insert_query)
+        cursor = self.__db_connection.cursor()
+        try:
+            cursor.execute("""INSERT INTO users (email, username, key) VALUES (?,?,?);""", (user.email, user.username, user.databaseKey))
+            self.__db_connection.commit()
+        except sqlite3.Error as error:
+            raise RepositoryError("Database query execution error occurred: '{}'\n".format(str(error)))
 
     def remove(self, user):
         self.__load_data()
         super().remove(user)
-        remove_query = "DELETE FROM users where email = '{}' AND username = '{}'".format(user.email, user.username)
-        UsersDatabaseManager.execute_query(self.__db_connection, remove_query)
+        cursor = self.__db_connection.cursor()
+        try:
+            cursor.execute("""DELETE FROM users where email = ? AND username = ?""", (user.email, user.username))
+            self.__db_connection.commit()
+        except sqlite3.Error as error:
+            raise RepositoryError("Database query execution error occurred: '{}'\n".format(str(error)))
 
     def update(self, user, new_user):
         self.__load_data()
         super().update(user, new_user)
-        update_query = "UPDATE users SET key = '{}', username = '{}', email = '{}' WHERE email = '{}' AND username = '{}'".format(
-                        new_user.databaseKey, new_user.username, new_user.email, user.email, user.username)
-        UsersDatabaseManager.execute_query(self.__db_connection, update_query)
+        cursor = self.__db_connection.cursor()
+        try:
+            cursor.execute("""UPDATE users SET key = ?, username = ?, email = ? WHERE email = ? AND username = ?""", (new_user.databaseKey, new_user.username, new_user.email, user.email, user.username))
+            self.__db_connection.commit()
+        except sqlite3.Error as error:
+            raise RepositoryError("Database query execution error occurred: '{}'\n".format(str(error)))

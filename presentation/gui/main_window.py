@@ -12,6 +12,7 @@ from presentation.gui.piece_choice_window import PieceChoiceWindow
 from presentation.gui.widgets import Label, ImageButton, TextBox, CreateAccountTextButton, BackImageButton, \
     LoginImageButton, ExitImageButton, PlayAsGuestImageButton, DefaultImageButton, RestartImageButton
 from tools.constants import PieceColor
+from tools.validators import CredentialsValidator
 
 
 class MainWindow:
@@ -39,6 +40,8 @@ class MainWindow:
         self.__username_textbox = None
         self.__password_textbox = None
         self.__repeated_password_textbox = None
+        self.__verification_textbox = None
+        self.__submit_button = None
 
         self.init_widgets()
 
@@ -64,6 +67,8 @@ class MainWindow:
         self.__username_textbox = None
         self.__password_textbox = None
         self.__repeated_password_textbox = None
+        self.__verification_textbox = None
+        self.__submit_button = None
 
         widget_x = screen_height
         widget_width = screen_width - screen_height - margin
@@ -321,10 +326,47 @@ class MainWindow:
         username = self.__username_textbox.text
         password = self.__password_textbox.text
         repeated_password = self.__repeated_password_textbox.text
-        if repeated_password != password:
-            raise PasswordsDoNotMatchError("Passwords do not match!")
+        CredentialsValidator.validate(email, username, password, repeated_password)
 
-        self.__users_service.insert(email, username, password)
+        # self.__users_service.insert(email, username, password)
+        # self.__widgets_group.empty()
+        # self.init_widgets()
+
+        self.__widgets_group.empty()
+        self.__sign_up_button = None
+
+        screen_width, screen_height = pygame.display.get_surface().get_size()
+        margin = Dimensions.MARGIN.value
+        cell_dimension = self.__game_board.cell_dimension
+
+        widget_x = screen_height - 20
+        widget_width = screen_width - screen_height - margin
+        widget_height = margin
+        widget_font = pygame.font.SysFont('Benne', 20)
+
+        get_widget_y = lambda middle, height: middle - height / 2
+
+        widget_y = get_widget_y(margin + cell_dimension / 2, widget_height)
+
+        verification_label = Label(self, 'Email verification code:', widget_font, widget_width, widget_height, widget_x, widget_y)
+        verification_label.add(self.__widgets_group)
+
+        widget_width += 40
+        self.__verification_textbox = TextBox(widget_x, widget_y, widget_width, widget_height, False, '', widget_font)
+        self.__verification_textbox.add(self.__widgets_group)
+
+        widget_width -= 40
+        widget_x += 20
+        widget_y = widget_y + widget_height + 10
+        self.__submit_button = ImageButton(self, r'\\assets\submit.png', widget_width, widget_height, widget_x, widget_y)
+        self.__submit_button.add(self.__widgets_group)
+
+        widget_y = widget_y + widget_height + 10
+        back_button = BackImageButton(self, r'\\assets\main_menu.png', widget_width, widget_height, widget_x, widget_y)
+        back_button.add(self.__widgets_group)
+
+    def __submit_button_clicked(self):
+        print("Clicked!")
         self.__widgets_group.empty()
         self.init_widgets()
 
@@ -345,6 +387,8 @@ class MainWindow:
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if self.__sign_up_button is not None and self.__sign_up_button.rectangle.collidepoint(event.pos):
                             self.__sign_up_button_clicked()
+                        if self.__submit_button is not None and self.__submit_button.rectangle.collidepoint(event.pos):
+                            self.__submit_button_clicked()
 
                     if event.type == pygame.MOUSEBUTTONUP:
                         position = pygame.mouse.get_pos()

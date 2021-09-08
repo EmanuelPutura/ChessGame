@@ -1,12 +1,12 @@
-from user_account.constants import Constants
+from tools.constants import UserAccountConstants
 
 
 class User:
     def __init__(self, email, username, key):
         self.__email = email
         self.__username = username
-        self.__salt = key[:Constants.SALT_BYTES_NUMBER.value]
-        self.__key = key[Constants.SALT_BYTES_NUMBER.value:]
+        self.__salt = key[:UserAccountConstants.SALT_BYTES_NUMBER.value]
+        self.__key = key[UserAccountConstants.SALT_BYTES_NUMBER.value:]
 
     @property
     def email(self):

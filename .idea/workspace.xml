@@ -23,19 +23,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f9fb620e-864a-4645-860d-d447c81affbf" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/Emanuel.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/infrastructure/database_repository.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/infrastructure/memory_repository.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/users_service.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user_account/constants.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user_account/user.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/validators.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/databases/data.db" beforeDir="false" afterPath="$PROJECT_DIR$/databases/data.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/databases/data.db-journal" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/errors/exceptions.py" beforeDir="false" afterPath="$PROJECT_DIR$/errors/exceptions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/database_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/database_repository.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/presentation/gui/main_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/presentation/gui/main_window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/presentation/gui/widgets.py" beforeDir="false" afterPath="$PROJECT_DIR$/presentation/gui/widgets.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/users_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/users_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tools/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/tools/constants.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_account/constants.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_account/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/user_account/user.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +65,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="IntelliLang.Configuration" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -77,28 +75,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Python.main">
-    <configuration name="board" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="ChessGame" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/chess_board" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/chess_board/board.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="game_service" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="ChessGame" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -143,6 +119,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="main_window" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="ChessGame" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/presentation/gui" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/presentation/gui/main_window.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="Unittests for test_piece_moving.TestPieceMoving.test_basic_movement" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <module name="ChessGame" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -176,10 +174,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.main_window" />
         <item itemvalue="Python tests.Unittests in tests" />
         <item itemvalue="Python tests.Unittests for test_piece_moving.TestPieceMoving.test_basic_movement" />
         <item itemvalue="Python.game_service" />
-        <item itemvalue="Python.board" />
       </list>
     </recent_temporary>
   </component>
@@ -234,7 +232,10 @@
       <workItem from="1631015814469" duration="361000" />
       <workItem from="1631016186698" duration="135000" />
       <workItem from="1631016332417" duration="522000" />
-      <workItem from="1631016859691" duration="8645000" />
+      <workItem from="1631016859691" duration="9556000" />
+      <workItem from="1631081203928" duration="3052000" />
+      <workItem from="1631084389602" duration="3913000" />
+      <workItem from="1631097752836" duration="296000" />
     </task>
     <servers />
   </component>
@@ -266,42 +267,46 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="256" y="263" key="#SQL_Resolution_Scopes/0.0.1536.824@0.0.1536.824" timestamp="1631013334430" />
+    <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1631081837635">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1631081837635" />
     <state x="549" y="154" key="FileChooserDialogImpl" timestamp="1631016856594">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="154" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1631016856594" />
-    <state width="1493" height="147" key="GridCell.Tab.0.bottom" timestamp="1631037402181">
+    <state width="1493" height="147" key="GridCell.Tab.0.bottom" timestamp="1631098004955">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="147" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1631037402181" />
-    <state width="1493" height="147" key="GridCell.Tab.0.center" timestamp="1631037402181">
+    <state width="1493" height="147" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1631098004955" />
+    <state width="1493" height="147" key="GridCell.Tab.0.center" timestamp="1631098004945">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="147" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1631037402181" />
-    <state width="1493" height="147" key="GridCell.Tab.0.left" timestamp="1631037402181">
+    <state width="1493" height="147" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1631098004945" />
+    <state width="1493" height="147" key="GridCell.Tab.0.left" timestamp="1631098004945">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="147" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1631037402181" />
-    <state width="1493" height="147" key="GridCell.Tab.0.right" timestamp="1631037402181">
+    <state width="1493" height="147" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1631098004945" />
+    <state width="1493" height="147" key="GridCell.Tab.0.right" timestamp="1631098004955">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="147" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1631037402181" />
-    <state width="1493" height="288" key="GridCell.Tab.1.bottom" timestamp="1631032707335">
+    <state width="1493" height="147" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1631098004955" />
+    <state width="1493" height="288" key="GridCell.Tab.1.bottom" timestamp="1631043579015">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1631032707335" />
-    <state width="1493" height="288" key="GridCell.Tab.1.center" timestamp="1631032707335">
+    <state width="1493" height="288" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1631043579015" />
+    <state width="1493" height="288" key="GridCell.Tab.1.center" timestamp="1631043579014">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1631032707335" />
-    <state width="1493" height="288" key="GridCell.Tab.1.left" timestamp="1631032707334">
+    <state width="1493" height="288" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1631043579014" />
+    <state width="1493" height="288" key="GridCell.Tab.1.left" timestamp="1631043579014">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1631032707334" />
-    <state width="1493" height="288" key="GridCell.Tab.1.right" timestamp="1631032707335">
+    <state width="1493" height="288" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1631043579014" />
+    <state width="1493" height="288" key="GridCell.Tab.1.right" timestamp="1631043579014">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1631032707335" />
+    <state width="1493" height="288" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1631043579014" />
     <state x="584" y="346" key="ReplaceDuplicatesPrompt" timestamp="1630506321607">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -310,18 +315,18 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="591" y="31" key="RollbackChangesDialog/0.0.1536.824@0.0.1536.824" timestamp="1631015799238" />
-    <state x="258" y="80" key="SettingsEditor" timestamp="1631017768580">
+    <state x="258" y="80" key="SettingsEditor" timestamp="1631097807816">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="258" y="80" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1631017768580" />
+    <state x="258" y="80" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1631097807816" />
     <state x="596" y="198" key="refactoring.ChangeSignatureDialog" timestamp="1626965905417">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="596" y="198" key="refactoring.ChangeSignatureDialog/0.0.1536.824@0.0.1536.824" timestamp="1626965905417" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1630601803080">
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1631097835819">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1630601803080" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1631097835819" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
@@ -336,11 +341,11 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ChessGame$Unittests_in_tests.coverage" NAME="Unittests in tests Coverage Results" MODIFIED="1614193618928" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/ChessGame$main.coverage" NAME="main Coverage Results" MODIFIED="1631037402174" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ChessGame$main.coverage" NAME="main Coverage Results" MODIFIED="1631098004945" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ChessGame$board.coverage" NAME="board Coverage Results" MODIFIED="1613584024998" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/chess_board" />
     <SUITE FILE_PATH="coverage/ChessGame$Unittests_for_test_piece_moving_TestPieceMoving_test_basic_movement.coverage" NAME="Unittests for test_piece_moving.TestPieceMoving.test_basic_movement Coverage Results" MODIFIED="1613598202626" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/ChessGame$game_service.coverage" NAME="game_service Coverage Results" MODIFIED="1613589505628" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/services" />
-    <SUITE FILE_PATH="coverage/ChessGame$main_window.coverage" NAME="main_window Coverage Results" MODIFIED="1613553945871" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/presentation/gui" />
     <SUITE FILE_PATH="coverage/ChessGame$bishop.coverage" NAME="bishop Coverage Results" MODIFIED="1613559558275" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/chess_pieces" />
+    <SUITE FILE_PATH="coverage/ChessGame$main_window.coverage" NAME="main_window Coverage Results" MODIFIED="1631097773020" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/presentation/gui" />
   </component>
 </project>

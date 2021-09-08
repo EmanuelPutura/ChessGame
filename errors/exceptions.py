@@ -20,3 +20,7 @@ class RepositoryError(Exception):
 
 class PasswordsDoNotMatchError(Exception):
     pass
+
+
+class InvalidAccountCredentialsError(Exception):
+    pass
