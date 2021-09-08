@@ -24,3 +24,7 @@ class PasswordsDoNotMatchError(Exception):
 
 class InvalidAccountCredentialsError(Exception):
     pass
+
+
+class InvalidVerificationCodeError(Exception):
+    pass

@@ -4,7 +4,7 @@ from tkinter import messagebox
 
 import pygame
 
-from errors.exceptions import UserInputError, PasswordsDoNotMatchError
+from errors.exceptions import UserInputError, InvalidVerificationCodeError
 from presentation.gui.constants import Colors, Dimensions
 from presentation.gui.game_board import GameBoard
 from presentation.gui.gradient_generator import GradientGenerator
@@ -13,6 +13,7 @@ from presentation.gui.widgets import Label, ImageButton, TextBox, CreateAccountT
     LoginImageButton, ExitImageButton, PlayAsGuestImageButton, DefaultImageButton, RestartImageButton
 from tools.constants import PieceColor
 from tools.validators import CredentialsValidator
+from tools.email_sender import EmailSender
 
 
 class MainWindow:
@@ -42,6 +43,7 @@ class MainWindow:
         self.__repeated_password_textbox = None
         self.__verification_textbox = None
         self.__submit_button = None
+        self.__code = None
 
         self.init_widgets()
 
@@ -69,6 +71,7 @@ class MainWindow:
         self.__repeated_password_textbox = None
         self.__verification_textbox = None
         self.__submit_button = None
+        self.__code = None
 
         widget_x = screen_height
         widget_width = screen_width - screen_height - margin
@@ -326,11 +329,11 @@ class MainWindow:
         username = self.__username_textbox.text
         password = self.__password_textbox.text
         repeated_password = self.__repeated_password_textbox.text
-        CredentialsValidator.validate(email, username, password, repeated_password)
+        CredentialsValidator.validate(email, username, password, repeated_password, self.__users_service)
 
-        # self.__users_service.insert(email, username, password)
-        # self.__widgets_group.empty()
-        # self.init_widgets()
+        sender = EmailSender()
+        sender.send(username, email)
+        self.__code = sender.code
 
         self.__widgets_group.empty()
         self.__sign_up_button = None
@@ -345,7 +348,6 @@ class MainWindow:
         widget_font = pygame.font.SysFont('Benne', 20)
 
         get_widget_y = lambda middle, height: middle - height / 2
-
         widget_y = get_widget_y(margin + cell_dimension / 2, widget_height)
 
         verification_label = Label(self, 'Email verification code:', widget_font, widget_width, widget_height, widget_x, widget_y)
@@ -366,9 +368,22 @@ class MainWindow:
         back_button.add(self.__widgets_group)
 
     def __submit_button_clicked(self):
-        print("Clicked!")
+        email = self.__email_textbox.text
+        username = self.__username_textbox.text
+        password = self.__password_textbox.text
+        code = self.__verification_textbox.text
+
+        if str(self.__code) != code:
+            raise InvalidVerificationCodeError("Invalid verification code!")
+
+        self.__users_service.insert(email, username, password)
         self.__widgets_group.empty()
         self.init_widgets()
+
+    def attempt_login(self):
+        print("Attempt login!")
+        # self.parent.widgets_group.empty()
+        # self.parent.init_login_widgets()
 
     def run(self):
         draw_options = False

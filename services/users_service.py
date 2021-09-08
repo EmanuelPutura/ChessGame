@@ -2,7 +2,6 @@ import hashlib
 import os
 
 from tools.constants import UserAccountConstants
-from errors.exceptions import InvalidAccountCredentialsError
 from user_account.user import User
 
 
@@ -22,3 +21,11 @@ class UsersService:
         storage = salt + key
         user = User(email, username, storage)
         self.__users_repository.insert(user)
+
+    def search(self, email, username):
+        for user in self.__users_repository.entities:
+            if user.email == email:
+                return 1
+            if user.username == username:
+                return 2
+        return 0

@@ -88,8 +88,7 @@ class LoginImageButton(ImageButton):
         if event.type == pygame.MOUSEBUTTONDOWN:
             # If the user clicked on the image rectangle
             if self.rectangle.collidepoint(event.pos):
-                self.parent.widgets_group.empty()
-                self.parent.init_login_widgets()
+                self.parent.attempt_login()
         return True
 
 
