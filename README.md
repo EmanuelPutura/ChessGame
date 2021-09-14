@@ -1,7 +1,7 @@
 # ChessGame
 Chess game written in Python, providing account registering and all the usual chess functionalities.
 
-<p align="center"> <img src="https://github.com/EmanuelPutura/ChessGame/blob/main/git_images/main_menu.png" height="400"/> </p>
+<p align="center"> <img src="https://github.com/EmanuelPutura/ChessGame/blob/main/git_images/main_menu.png" height="500"/> </p>
 
 
 ## Setup
