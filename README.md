@@ -13,3 +13,7 @@ Chess game written in Python, providing account registering and all the usual ch
     ```sh
     $ python main.py
     ```
+    
+
+## Features
+1. all chess functionalities, together with the chess special moves, such as castling and pawn promotion
