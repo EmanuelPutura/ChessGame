@@ -11,7 +11,7 @@ from services.users_service import UsersService
 from tests.test_piece_moving import TestPieceMoving
 
 if __name__ == "__main__":
-    # TestPieceMoving().test_all()
+    TestPieceMoving().test_all()
 
     users_repository = UsersDatabaseRepository("databases/data.db")
     game_service = GameService()
