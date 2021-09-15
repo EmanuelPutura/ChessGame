@@ -1,6 +1,6 @@
 # ChessGame
 Chess game written in Python, providing account registering and all the usual chess functionalities. Accounts are verified via a verification code sent to the user's email.
-Passwords are not stored in the database, they are hashed and their hash and salt is stored instead (see more at [Concepts](#concepts)).
+Passwords are not stored in the database, they are hashed and their hash and salt are stored instead (see more at [Concepts](#concepts)).
 
 <p align="center"> <img src="https://github.com/EmanuelPutura/ChessGame/blob/main/git_images/main_menu.png" height="500"/> </p>
 
