@@ -39,3 +39,23 @@ Passwords are not stored in the database, they are hashed and their hash and sal
 7. short tutorial section
 8. while playing, the user can restart the current game
 9. if one player wins, a special message is displayed
+
+
+## Project Screenshots
+ ### In-Game:
+ <p align="center"> <img src="https://github.com/EmanuelPutura/ChessGame/blob/main/git_images/play.png" height="500"/> </p>
+ 
+ ### Checkmate black winner:
+ <p align="center"> <img src="https://github.com/EmanuelPutura/ChessGame/blob/main/git_images/winner.png" height="500"/> </p>
+ 
+ ### Logged in, the user account photo is also displayed:
+ <p align="center"> <img src="https://github.com/EmanuelPutura/ChessGame/blob/main/git_images/logged_in.png" height="500"/> </p>
+ 
+ ### Create an account:
+ <p align="center"> <img src="https://github.com/EmanuelPutura/ChessGame/blob/main/git_images/create_account.png" height="500"/> </p>
+ 
+ ### Email verification code:
+ <p align="center"> <img src="https://github.com/EmanuelPutura/ChessGame/blob/main/git_images/verification_code.png" height="500"/> </p>
+
+ ### Pawn promotion choose piece window:
+ <p align="center"> <img src="https://github.com/EmanuelPutura/ChessGame/blob/main/git_images/choose_piece.png" height="500"/> </p>
