@@ -57,5 +57,5 @@ Passwords are not stored in the database, they are hashed and their hash and sal
  ### Email verification code:
  <p align="center"> <img src="https://github.com/EmanuelPutura/ChessGame/blob/main/git_images/verification_code.png" height="500"/> </p>
 
- ### Pawn promotion choose piece window:
+ ### White pawn promotion choose piece window:
  <p align="center"> <img src="https://github.com/EmanuelPutura/ChessGame/blob/main/git_images/choose_piece.png" height="500"/> </p>
