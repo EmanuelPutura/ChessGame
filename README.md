@@ -42,7 +42,7 @@ Passwords are not stored in the database, they are hashed and their hash and sal
 
 
 ## Project Screenshots
- ### In-Game:
+ ### In-Game. Selected piece's move options are displayed:
  <p align="center"> <img src="https://github.com/EmanuelPutura/ChessGame/blob/main/git_images/play.png" height="500"/> </p>
  
  ### Checkmate black winner:
