@@ -24,7 +24,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f9fb620e-864a-4645-860d-d447c81affbf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +53,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../JPMorgan Virtual Internship/JPMC-tech-task-1-py3/client3.py" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
@@ -68,8 +67,8 @@
       <recent name="D:\Personal Projects\ChessGame" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
-    <configuration name="game_service" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.client3">
+    <configuration name="client3" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="ChessGame" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -77,12 +76,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/services" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../../JPMorgan Virtual Internship/JPMC-tech-task-1-py3" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/services/game_service.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../../JPMorgan Virtual Internship/JPMC-tech-task-1-py3/client3.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -167,11 +166,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.client3" />
         <item itemvalue="Python.main" />
         <item itemvalue="Python.main_window" />
         <item itemvalue="Python tests.Unittests in tests" />
         <item itemvalue="Python tests.Unittests for test_piece_moving.TestPieceMoving.test_basic_movement" />
-        <item itemvalue="Python.game_service" />
       </list>
     </recent_temporary>
   </component>
@@ -233,7 +232,9 @@
       <workItem from="1631284823324" duration="95000" />
       <workItem from="1631550708940" duration="15000" />
       <workItem from="1631630780781" duration="14000" />
-      <workItem from="1631645133740" duration="1281000" />
+      <workItem from="1631645133740" duration="2324000" />
+      <workItem from="1631712648565" duration="2335000" />
+      <workItem from="1632132750937" duration="315000" />
     </task>
     <servers />
   </component>
@@ -269,26 +270,26 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1631081837635" />
-    <state x="549" y="154" key="FileChooserDialogImpl" timestamp="1631550721595">
+    <state x="549" y="154" key="FileChooserDialogImpl" timestamp="1632132763328">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="549" y="154" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1631550721595" />
-    <state width="1493" height="147" key="GridCell.Tab.0.bottom" timestamp="1631646570761">
+    <state x="549" y="154" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1632132763328" />
+    <state width="1493" height="147" key="GridCell.Tab.0.bottom" timestamp="1632133068122">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="147" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1631646570761" />
-    <state width="1493" height="147" key="GridCell.Tab.0.center" timestamp="1631646570760">
+    <state width="1493" height="147" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1632133068122" />
+    <state width="1493" height="147" key="GridCell.Tab.0.center" timestamp="1632133068122">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="147" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1631646570760" />
-    <state width="1493" height="147" key="GridCell.Tab.0.left" timestamp="1631646570760">
+    <state width="1493" height="147" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1632133068122" />
+    <state width="1493" height="147" key="GridCell.Tab.0.left" timestamp="1632133068122">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="147" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1631646570760" />
-    <state width="1493" height="147" key="GridCell.Tab.0.right" timestamp="1631646570761">
+    <state width="1493" height="147" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1632133068122" />
+    <state width="1493" height="147" key="GridCell.Tab.0.right" timestamp="1632133068122">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="147" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1631646570761" />
+    <state width="1493" height="147" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1632133068122" />
     <state width="1493" height="288" key="GridCell.Tab.1.bottom" timestamp="1631136038398">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -339,9 +340,10 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ChessGame$Unittests_in_tests.coverage" NAME="Unittests in tests Coverage Results" MODIFIED="1614193618928" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/ChessGame$main.coverage" NAME="main Coverage Results" MODIFIED="1631646570750" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ChessGame$main.coverage" NAME="main Coverage Results" MODIFIED="1632132984090" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ChessGame$board.coverage" NAME="board Coverage Results" MODIFIED="1613584024998" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/chess_board" />
     <SUITE FILE_PATH="coverage/ChessGame$Unittests_for_test_piece_moving_TestPieceMoving_test_basic_movement.coverage" NAME="Unittests for test_piece_moving.TestPieceMoving.test_basic_movement Coverage Results" MODIFIED="1613598202626" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/ChessGame$client3.coverage" NAME="client3 Coverage Results" MODIFIED="1632133037046" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../JPMorgan Virtual Internship/JPMC-tech-task-1-py3" />
     <SUITE FILE_PATH="coverage/ChessGame$game_service.coverage" NAME="game_service Coverage Results" MODIFIED="1613589505628" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/services" />
     <SUITE FILE_PATH="coverage/ChessGame$bishop.coverage" NAME="bishop Coverage Results" MODIFIED="1613559558275" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/chess_pieces" />
     <SUITE FILE_PATH="coverage/ChessGame$main_window.coverage" NAME="main_window Coverage Results" MODIFIED="1631097773020" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/presentation/gui" />
